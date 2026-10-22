@@ -1,0 +1,46 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.secret
+.secrets/
+secret.env
+*.pem
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+dist/
+build/
+
+# Images and weights (never commit)
+models/
+weights/
+checkpoints/
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+*.onnx
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.zip
+
+# Notebook runtime checkpoint (may contain private embedding vectors)
+multimodal_embeddings_api_demo_cache.json
+multimodal_embeddings_api_demo_cache.json.*
+
+# Logs and temp
+*.log
+*.tmp
+.DS_Store

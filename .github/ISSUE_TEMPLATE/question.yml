@@ -1,0 +1,33 @@
+name: Usage question / Câu hỏi sử dụng
+description: Ask about setup, HTTP requests or supported model behavior.
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read README and Troubleshooting first. Do not paste API tokens or user images.
+        Vui lòng đọc README và tài liệu khắc phục lỗi trước khi gửi câu hỏi.
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic / Chủ đề
+      options:
+        - Installation and configuration
+        - Python, Node.js or C#/.NET client
+        - Model selection and vector output
+        - GPU deployment and cost
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question / Câu hỏi
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: What have you tried? / Bạn đã thử gì?
+      description: Summarize only sanitized troubleshooting steps.

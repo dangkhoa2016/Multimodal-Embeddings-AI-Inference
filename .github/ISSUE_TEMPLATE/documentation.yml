@@ -1,0 +1,30 @@
+name: Documentation / Góp ý tài liệu
+description: Request a clarification or report an EN/VI documentation mismatch.
+title: "[Docs] "
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Document path / Đường dẫn tài liệu
+      placeholder: "docs/CLIENT_INTEGRATION.vi.md"
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: Inaccurate or missing information / Nội dung chưa đúng hoặc còn thiếu
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement / Đề xuất sửa
+    validations:
+      required: true
+  - type: checkboxes
+    id: translations
+    attributes:
+      label: Translation / Bản dịch
+      options:
+        - label: Please check the corresponding English and Vietnamese documents.

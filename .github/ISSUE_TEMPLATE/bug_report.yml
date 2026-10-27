@@ -1,0 +1,62 @@
+name: Bug report / Báo lỗi
+description: Report a reproducible problem in the inference API.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Provide sanitized details only. Do not share tokens, personal images, private endpoints or model weights.
+        Chỉ cung cấp thông tin đã loại dữ liệu nhạy cảm.
+  - type: input
+    id: version
+    attributes:
+      label: Project version / Phiên bản dự án
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component / Thành phần
+      options:
+        - FastAPI gateway
+        - Qwen/Qwen3-VL-Embedding-8B
+        - tencent/WeMM-Embedding-9B
+        - Modal deployment and storage
+        - Documentation or CI
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps / Cách tái hiện
+      description: Use synthetic or redacted input and omit secrets.
+      placeholder: "1. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / Kết quả mong đợi
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / Kết quả thực tế
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / Môi trường
+      description: OS, Python version, backend mode and authorized GPU type.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy / Quyền riêng tư
+      options:
+        - label: I removed credentials, private URLs and personal images from this report.
+          required: true

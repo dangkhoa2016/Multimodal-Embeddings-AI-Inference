@@ -1,0 +1,46 @@
+name: Feature request / Đề xuất tính năng
+description: Suggest an improvement to the standalone inference API.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Explain the use case without sharing private data.
+        Mô tả nhu cầu sử dụng mà không công bố dữ liệu riêng tư.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Vấn đề
+      description: What user-facing limitation are you trying to solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution / Giải pháp đề xuất
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope / Phạm vi
+      options:
+        - REST API and response contract
+        - Model inference and embeddings
+        - Deployment and operations
+        - Privacy and security
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives / Phương án khác
+  - type: checkboxes
+    id: backward_compatibility
+    attributes:
+      label: Compatibility / Tương thích
+      options:
+        - label: I considered impacts on API clients, model revisions and vector compatibility.

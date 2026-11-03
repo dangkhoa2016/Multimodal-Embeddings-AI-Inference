@@ -1,0 +1,42 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.secret
+.secrets/
+secret.env
+*.pem
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+dist/
+build/
+
+# Images and weights (never commit)
+models/
+weights/
+checkpoints/
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+*.onnx
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.zip
+
+# Logs and temp
+*.log
+*.tmp
+.DS_Store

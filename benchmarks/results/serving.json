@@ -1,0 +1,1093 @@
+{
+  "status": "LIVE_BENCHMARK_MEASURED",
+  "created_utc": "2026-11-07T23:14:40.727248+00:00",
+  "models": {
+    "qwen3-vl-embedding-8b": {
+      "revision": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+      "dimension": 1024
+    },
+    "wemm-embedding-9b": {
+      "revision": "00c52839de57a6d4fd5b78cf5522ccf0ac8ea482",
+      "dimension": 1024
+    }
+  },
+  "input_sha256": {
+    "text": "f2acc4fb4fb94de54f49fcee5b1a0beb422a986195063355da7de0778d8a86af",
+    "image": "2fae4c65d567c940a92de261b2538224955767567ded69cbd6f61635b3e5cbfe"
+  },
+  "embedding_configs": {
+    "qwen3-vl-embedding-8b": {
+      "preprocessing_version": "qwen3-vl-adapter-v1",
+      "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+      "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+    },
+    "wemm-embedding-9b": {
+      "preprocessing_version": "wemm-adapter-v1",
+      "instruction_sha256": null,
+      "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+    }
+  },
+  "provenance": {
+    "notebook_template": {
+      "code_sha256": "6149b572ea95a05fc97bb0790888bad350601aac8bfcd93dc42e4fc664c06823",
+      "status": "embedded_template_digest_not_runtime_verified"
+    },
+    "client_source_commit": {
+      "value": null,
+      "status": "unavailable"
+    },
+    "server_source_commit": {
+      "value": null,
+      "status": "unavailable"
+    },
+    "note": "Declared commits are not verified; the client commit is never the server commit."
+  },
+  "config": {
+    "models": [
+      "qwen3-vl-embedding-8b",
+      "wemm-embedding-9b"
+    ],
+    "dimension": 1024,
+    "timeout_seconds": 900,
+    "run_cold": false,
+    "run_warm": true,
+    "run_alternate": false,
+    "run_concurrent": true,
+    "run_mixed_batch": true,
+    "cold_target_model": "both",
+    "cold_idle_wait_seconds": 210,
+    "cold_window_padding_seconds": 30,
+    "estimated_total_idle_seconds": 0,
+    "gateway_scaledown_seconds_declared": 60,
+    "gpu_scaledown_seconds_declared": 180,
+    "gateway_min_containers_declared": 0,
+    "gpu_min_containers_declared": 0,
+    "cold_attempts_per_model": 0,
+    "warm_attempts_per_modality_per_model": 4,
+    "warmup_requests_per_modality_per_model_per_block": 1,
+    "warmup_requests_per_modality_per_model": 2,
+    "alternate_attempts_per_model": 0,
+    "qwen_instruction_mode": "default",
+    "qwen_instruction_sha256": null,
+    "concurrent_workers": 2,
+    "concurrent_requests_per_model": 4,
+    "mixed_batch_repetitions": 3,
+    "worker_id_source": "optional per-worker lifetime ID",
+    "retries": 0,
+    "sequential_cold_warm_alternate": true,
+    "run_id": "2b52e6164b4c4cc5b233a37397cc7f82",
+    "run_configuration_sha256": "b792fa7a34be03ece45ef829a51cc287afe2e676b2ba3d3738d52cafe1736f7f"
+  },
+  "sample_size_context": {
+    "default_warm_post_requests": 24,
+    "default_warmup_requests": 8,
+    "default_measured_requests": 16,
+    "default_warm_measurements_per_model_modality": 4,
+    "client_latency_n_is_per_group": true,
+    "note_en": "p95 is descriptive only; small confirmed samples do not establish production tail latency.",
+    "note_vi": "p95 chỉ mô tả mẫu đã xác nhận; ít mẫu không chứng minh độ trễ đuôi production."
+  },
+  "summary": {
+    "warm / qwen3-vl-embedding-8b / image": {
+      "state_counts": {
+        "warm": 4
+      },
+      "attempts": 4,
+      "confirmed": 4,
+      "unconfirmed": 0,
+      "client": {
+        "n": 4,
+        "p50_ms": 3535.118,
+        "p95_ms": 3887.783,
+        "mean_ms": 3607.587
+      },
+      "api": {
+        "n": 4,
+        "p50_ms": 1947.825,
+        "p95_ms": 2306.527,
+        "mean_ms": 2033.203
+      },
+      "model_load": {
+        "n": 4,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "mean_ms": 0.0
+      },
+      "gpu_encode": {
+        "n": 4,
+        "p50_ms": 40.337,
+        "p95_ms": 41.265,
+        "mean_ms": 40.473
+      }
+    },
+    "warm / qwen3-vl-embedding-8b / text": {
+      "state_counts": {
+        "warm": 4
+      },
+      "attempts": 4,
+      "confirmed": 4,
+      "unconfirmed": 0,
+      "client": {
+        "n": 4,
+        "p50_ms": 2680.75,
+        "p95_ms": 2697.128,
+        "mean_ms": 2583.759
+      },
+      "api": {
+        "n": 4,
+        "p50_ms": 1319.823,
+        "p95_ms": 1349.74,
+        "mean_ms": 1230.093
+      },
+      "model_load": {
+        "n": 4,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "mean_ms": 0.0
+      },
+      "gpu_encode": {
+        "n": 4,
+        "p50_ms": 25.766,
+        "p95_ms": 25.998,
+        "mean_ms": 25.77
+      }
+    },
+    "warm / wemm-embedding-9b / image": {
+      "state_counts": {
+        "warm": 4
+      },
+      "attempts": 4,
+      "confirmed": 4,
+      "unconfirmed": 0,
+      "client": {
+        "n": 4,
+        "p50_ms": 3459.503,
+        "p95_ms": 3483.027,
+        "mean_ms": 3380.569
+      },
+      "api": {
+        "n": 4,
+        "p50_ms": 1904.18,
+        "p95_ms": 1915.833,
+        "mean_ms": 1807.539
+      },
+      "model_load": {
+        "n": 4,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "mean_ms": 0.0
+      },
+      "gpu_encode": {
+        "n": 4,
+        "p50_ms": 148.186,
+        "p95_ms": 151.417,
+        "mean_ms": 148.352
+      }
+    },
+    "warm / wemm-embedding-9b / text": {
+      "state_counts": {
+        "warm": 4
+      },
+      "attempts": 4,
+      "confirmed": 4,
+      "unconfirmed": 0,
+      "client": {
+        "n": 4,
+        "p50_ms": 2674.979,
+        "p95_ms": 2720.277,
+        "mean_ms": 2588.91
+      },
+      "api": {
+        "n": 4,
+        "p50_ms": 1331.631,
+        "p95_ms": 1341.123,
+        "mean_ms": 1229.481
+      },
+      "model_load": {
+        "n": 4,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "mean_ms": 0.0
+      },
+      "gpu_encode": {
+        "n": 4,
+        "p50_ms": 128.896,
+        "p95_ms": 131.508,
+        "mean_ms": 128.889
+      }
+    }
+  },
+  "trials": [
+    {
+      "phase": "warmup",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "text",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 2696.036,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1354.342,
+      "gpu_worker_ms": 26.991,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 25.959,
+      "gpu_dispatch_overhead_ms": 1326.919,
+      "started_at_utc": "2026-11-07T23:13:05.548674+00:00",
+      "finished_at_utc": "2026-11-07T23:13:08.245051+00:00",
+      "sequence": 1,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warmup",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "image",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 3568.943,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 2010.515,
+      "gpu_worker_ms": 56.592,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 55.321,
+      "gpu_dispatch_overhead_ms": 1953.518,
+      "started_at_utc": "2026-11-07T23:13:08.245072+00:00",
+      "finished_at_utc": "2026-11-07T23:13:11.814329+00:00",
+      "sequence": 2,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "image",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 3934.107,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 2358.808,
+      "gpu_worker_ms": 42.657,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 41.412,
+      "gpu_dispatch_overhead_ms": 2315.767,
+      "started_at_utc": "2026-11-07T23:13:11.814345+00:00",
+      "finished_at_utc": "2026-11-07T23:13:15.748738+00:00",
+      "sequence": 3,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "text",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 2679.947,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1310.321,
+      "gpu_worker_ms": 26.604,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 25.697,
+      "gpu_dispatch_overhead_ms": 1283.325,
+      "started_at_utc": "2026-11-07T23:13:15.748753+00:00",
+      "finished_at_utc": "2026-11-07T23:13:18.429007+00:00",
+      "sequence": 4,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "text",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 2273.66,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 927.382,
+      "gpu_worker_ms": 26.617,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 25.521,
+      "gpu_dispatch_overhead_ms": 900.307,
+      "started_at_utc": "2026-11-07T23:13:18.429023+00:00",
+      "finished_at_utc": "2026-11-07T23:13:20.702980+00:00",
+      "sequence": 5,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "image",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 3625.281,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 2010.269,
+      "gpu_worker_ms": 41.713,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 40.435,
+      "gpu_dispatch_overhead_ms": 1968.103,
+      "started_at_utc": "2026-11-07T23:13:20.702994+00:00",
+      "finished_at_utc": "2026-11-07T23:13:24.328603+00:00",
+      "sequence": 6,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warmup",
+      "model": "wemm-embedding-9b",
+      "modality": "text",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 2986.132,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1644.985,
+      "gpu_worker_ms": 131.763,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 130.344,
+      "gpu_dispatch_overhead_ms": 1512.811,
+      "started_at_utc": "2026-11-07T23:13:24.328628+00:00",
+      "finished_at_utc": "2026-11-07T23:13:27.315039+00:00",
+      "sequence": 7,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warmup",
+      "model": "wemm-embedding-9b",
+      "modality": "image",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 4875.388,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 3268.106,
+      "gpu_worker_ms": 974.693,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 973.112,
+      "gpu_dispatch_overhead_ms": 2292.855,
+      "started_at_utc": "2026-11-07T23:13:27.315055+00:00",
+      "finished_at_utc": "2026-11-07T23:13:32.190734+00:00",
+      "sequence": 8,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "image",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 3119.305,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1505.039,
+      "gpu_worker_ms": 152.24,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 150.7,
+      "gpu_dispatch_overhead_ms": 1352.395,
+      "started_at_utc": "2026-11-07T23:13:32.190749+00:00",
+      "finished_at_utc": "2026-11-07T23:13:35.310355+00:00",
+      "sequence": 9,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "text",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 2727.862,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1341.873,
+      "gpu_worker_ms": 130.251,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 128.967,
+      "gpu_dispatch_overhead_ms": 1211.278,
+      "started_at_utc": "2026-11-07T23:13:35.310371+00:00",
+      "finished_at_utc": "2026-11-07T23:13:38.038485+00:00",
+      "sequence": 10,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "text",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 2277.823,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 912.788,
+      "gpu_worker_ms": 130.106,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 128.825,
+      "gpu_dispatch_overhead_ms": 782.34,
+      "started_at_utc": "2026-11-07T23:13:38.038499+00:00",
+      "finished_at_utc": "2026-11-07T23:13:40.316607+00:00",
+      "sequence": 11,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "image",
+      "round": 1,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 3477.722,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1910.609,
+      "gpu_worker_ms": 147.015,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 145.492,
+      "gpu_dispatch_overhead_ms": 1763.138,
+      "started_at_utc": "2026-11-07T23:13:40.316624+00:00",
+      "finished_at_utc": "2026-11-07T23:13:43.794739+00:00",
+      "sequence": 12,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warmup",
+      "model": "wemm-embedding-9b",
+      "modality": "text",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 2678.554,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1324.847,
+      "gpu_worker_ms": 130.314,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 129.108,
+      "gpu_dispatch_overhead_ms": 1194.148,
+      "started_at_utc": "2026-11-07T23:13:43.794796+00:00",
+      "finished_at_utc": "2026-11-07T23:13:46.473606+00:00",
+      "sequence": 13,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warmup",
+      "model": "wemm-embedding-9b",
+      "modality": "image",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 3493.725,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1886.404,
+      "gpu_worker_ms": 150.995,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 149.517,
+      "gpu_dispatch_overhead_ms": 1735.01,
+      "started_at_utc": "2026-11-07T23:13:46.473623+00:00",
+      "finished_at_utc": "2026-11-07T23:13:49.967627+00:00",
+      "sequence": 14,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "image",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 3483.963,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1916.755,
+      "gpu_worker_ms": 147.192,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 145.672,
+      "gpu_dispatch_overhead_ms": 1769.168,
+      "started_at_utc": "2026-11-07T23:13:49.967642+00:00",
+      "finished_at_utc": "2026-11-07T23:13:53.451926+00:00",
+      "sequence": 15,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "text",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 2677.298,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1336.87,
+      "gpu_worker_ms": 133.202,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 131.957,
+      "gpu_dispatch_overhead_ms": 1203.316,
+      "started_at_utc": "2026-11-07T23:13:53.451941+00:00",
+      "finished_at_utc": "2026-11-07T23:13:56.129472+00:00",
+      "sequence": 16,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "text",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 2672.659,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1326.392,
+      "gpu_worker_ms": 127.063,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 125.807,
+      "gpu_dispatch_overhead_ms": 1198.945,
+      "started_at_utc": "2026-11-07T23:13:56.129488+00:00",
+      "finished_at_utc": "2026-11-07T23:13:58.802423+00:00",
+      "sequence": 17,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "wemm-embedding-9b",
+      "modality": "image",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "wemm-adapter-v1",
+        "instruction_sha256": null,
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "client_elapsed_ms": 3441.285,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+      "api_elapsed_ms": 1897.751,
+      "gpu_worker_ms": 153.08,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 151.543,
+      "gpu_dispatch_overhead_ms": 1744.252,
+      "started_at_utc": "2026-11-07T23:13:58.802440+00:00",
+      "finished_at_utc": "2026-11-07T23:14:02.244073+00:00",
+      "sequence": 18,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warmup",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "text",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 2644.341,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1313.958,
+      "gpu_worker_ms": 27.223,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 26.158,
+      "gpu_dispatch_overhead_ms": 1286.327,
+      "started_at_utc": "2026-11-07T23:14:02.244096+00:00",
+      "finished_at_utc": "2026-11-07T23:14:04.888706+00:00",
+      "sequence": 19,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warmup",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "image",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 3569.859,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1995.574,
+      "gpu_worker_ms": 41.217,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 40.033,
+      "gpu_dispatch_overhead_ms": 1953.926,
+      "started_at_utc": "2026-11-07T23:14:04.888722+00:00",
+      "finished_at_utc": "2026-11-07T23:14:08.458969+00:00",
+      "sequence": 20,
+      "status": "completed",
+      "confirmed": false
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "image",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 3444.954,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1878.355,
+      "gpu_worker_ms": 41.036,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 39.805,
+      "gpu_dispatch_overhead_ms": 1836.901,
+      "started_at_utc": "2026-11-07T23:14:08.458987+00:00",
+      "finished_at_utc": "2026-11-07T23:14:11.904220+00:00",
+      "sequence": 21,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "text",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 2699.877,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1353.343,
+      "gpu_worker_ms": 27.063,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 26.027,
+      "gpu_dispatch_overhead_ms": 1325.808,
+      "started_at_utc": "2026-11-07T23:14:11.904235+00:00",
+      "finished_at_utc": "2026-11-07T23:14:14.604418+00:00",
+      "sequence": 22,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "text",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 2681.553,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1329.326,
+      "gpu_worker_ms": 26.894,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 25.835,
+      "gpu_dispatch_overhead_ms": 1302.044,
+      "started_at_utc": "2026-11-07T23:14:14.604438+00:00",
+      "finished_at_utc": "2026-11-07T23:14:17.286315+00:00",
+      "sequence": 23,
+      "status": "completed",
+      "confirmed": true
+    },
+    {
+      "phase": "warm",
+      "model": "qwen3-vl-embedding-8b",
+      "modality": "image",
+      "round": 2,
+      "embedding_metadata": {
+        "preprocessing_version": "qwen3-vl-adapter-v1",
+        "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+      },
+      "client_elapsed_ms": 3426.006,
+      "model_state": "warm",
+      "gpu_worker_first_request": false,
+      "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+      "api_elapsed_ms": 1885.38,
+      "gpu_worker_ms": 41.448,
+      "model_load_ms": 0.0,
+      "gpu_encode_ms": 40.239,
+      "gpu_dispatch_overhead_ms": 1843.524,
+      "started_at_utc": "2026-11-07T23:14:17.286334+00:00",
+      "finished_at_utc": "2026-11-07T23:14:20.712712+00:00",
+      "sequence": 24,
+      "status": "completed",
+      "confirmed": true
+    }
+  ],
+  "concurrent": {
+    "summary": [
+      {
+        "model": "qwen3-vl-embedding-8b",
+        "attempts": 4,
+        "completed": 4,
+        "workers_requested": 2,
+        "burst_wall_ms": 5636.872,
+        "observed_burst_items_per_second": 0.71
+      },
+      {
+        "model": "wemm-embedding-9b",
+        "attempts": 4,
+        "completed": 4,
+        "workers_requested": 2,
+        "burst_wall_ms": 5566.912,
+        "observed_burst_items_per_second": 0.719
+      }
+    ],
+    "trials": [
+      {
+        "phase": "concurrent",
+        "model": "qwen3-vl-embedding-8b",
+        "index": 0,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:20.773026+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2748.703,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "finished_at_utc": "2026-11-07T23:14:23.522038+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "qwen3-vl-embedding-8b",
+        "index": 1,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:20.777125+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2645.084,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "finished_at_utc": "2026-11-07T23:14:23.422505+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "qwen3-vl-embedding-8b",
+        "index": 2,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:23.424075+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2983.319,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "finished_at_utc": "2026-11-07T23:14:26.407651+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "qwen3-vl-embedding-8b",
+        "index": 3,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:23.523912+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2658.824,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "3236a05391f845fbb162864b62cc9b60",
+        "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "finished_at_utc": "2026-11-07T23:14:26.183137+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "wemm-embedding-9b",
+        "index": 0,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:26.409592+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2854.709,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa",
+        "finished_at_utc": "2026-11-07T23:14:29.264571+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "wemm-embedding-9b",
+        "index": 1,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:26.411500+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2685.07,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa",
+        "finished_at_utc": "2026-11-07T23:14:29.096965+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "wemm-embedding-9b",
+        "index": 2,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:29.098838+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2672.209,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa",
+        "finished_at_utc": "2026-11-07T23:14:31.771326+00:00"
+      },
+      {
+        "phase": "concurrent",
+        "model": "wemm-embedding-9b",
+        "index": 3,
+        "status": "completed",
+        "started_at_utc": "2026-11-07T23:14:29.266525+00:00",
+        "gpu_instrumentation_verified": true,
+        "client_elapsed_ms": 2707.823,
+        "model_state": "warm",
+        "gpu_worker_first_request": false,
+        "gpu_worker_id": "2ba3c7543ea24155a3ef1442a7da3edc",
+        "config_sha256": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa",
+        "finished_at_utc": "2026-11-07T23:14:31.974634+00:00"
+      }
+    ]
+  },
+  "mixed_model_batches": [
+    {
+      "index": 1,
+      "phase": "mixed_batch",
+      "status": "completed",
+      "confirmed": true,
+      "batch_size_requested": 2,
+      "started_at_utc": "2026-11-07T23:14:31.983517+00:00",
+      "batch_size": 2,
+      "client_wall_ms": 2887.602,
+      "gpu_instrumentation_verified": true,
+      "gpu_worker_ids": {
+        "qwen3-vl-embedding-8b": "3236a05391f845fbb162864b62cc9b60",
+        "wemm-embedding-9b": "2ba3c7543ea24155a3ef1442a7da3edc"
+      },
+      "gpu_states": {
+        "qwen3-vl-embedding-8b": {
+          "model_state": "warm",
+          "gpu_worker_first_request": false,
+          "worker_batch_size": 1
+        },
+        "wemm-embedding-9b": {
+          "model_state": "warm",
+          "gpu_worker_first_request": false,
+          "worker_batch_size": 1
+        }
+      },
+      "config_sha256": {
+        "qwen3-vl-embedding-8b": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "wemm-embedding-9b": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "finished_at_utc": "2026-11-07T23:14:34.873394+00:00"
+    },
+    {
+      "index": 2,
+      "phase": "mixed_batch",
+      "status": "completed",
+      "confirmed": true,
+      "batch_size_requested": 2,
+      "started_at_utc": "2026-11-07T23:14:34.874188+00:00",
+      "batch_size": 2,
+      "client_wall_ms": 2919.961,
+      "gpu_instrumentation_verified": true,
+      "gpu_worker_ids": {
+        "qwen3-vl-embedding-8b": "3236a05391f845fbb162864b62cc9b60",
+        "wemm-embedding-9b": "2ba3c7543ea24155a3ef1442a7da3edc"
+      },
+      "gpu_states": {
+        "qwen3-vl-embedding-8b": {
+          "model_state": "warm",
+          "gpu_worker_first_request": false,
+          "worker_batch_size": 1
+        },
+        "wemm-embedding-9b": {
+          "model_state": "warm",
+          "gpu_worker_first_request": false,
+          "worker_batch_size": 1
+        }
+      },
+      "config_sha256": {
+        "qwen3-vl-embedding-8b": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "wemm-embedding-9b": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "finished_at_utc": "2026-11-07T23:14:37.795214+00:00"
+    },
+    {
+      "index": 3,
+      "phase": "mixed_batch",
+      "status": "completed",
+      "confirmed": true,
+      "batch_size_requested": 2,
+      "started_at_utc": "2026-11-07T23:14:37.796035+00:00",
+      "batch_size": 2,
+      "client_wall_ms": 2902.64,
+      "gpu_instrumentation_verified": true,
+      "gpu_worker_ids": {
+        "qwen3-vl-embedding-8b": "3236a05391f845fbb162864b62cc9b60",
+        "wemm-embedding-9b": "2ba3c7543ea24155a3ef1442a7da3edc"
+      },
+      "gpu_states": {
+        "qwen3-vl-embedding-8b": {
+          "model_state": "warm",
+          "gpu_worker_first_request": false,
+          "worker_batch_size": 1
+        },
+        "wemm-embedding-9b": {
+          "model_state": "warm",
+          "gpu_worker_first_request": false,
+          "worker_batch_size": 1
+        }
+      },
+      "config_sha256": {
+        "qwen3-vl-embedding-8b": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3",
+        "wemm-embedding-9b": "9f8be818b0a7418c5c4df15102f2fa0eaff4bd00bb84435903495e0890fd9baa"
+      },
+      "finished_at_utc": "2026-11-07T23:14:40.699853+00:00"
+    }
+  ],
+  "limitations": [
+    "GPU cold evidence is not independent proof of CPU gateway cold.",
+    "Idle sleep is not proof of scale-down; other requests may interfere.",
+    "Alternating warm routing requires present, distinct and stable worker IDs.",
+    "Unconfirmed states are excluded from cold/warm/alternate statistics.",
+    "Concurrent bursts show observed short-window items/s, not sustained production throughput.",
+    "Burst wall time includes notebook dispatch and journal-writing overhead.",
+    "Mixed-model batch wall time is one HTTP call, not standalone per-model latency.",
+    "Retrieval quality and identity accuracy are not measured."
+  ],
+  "measurement_context": {
+    "run_kind": "measured_real_modal_api",
+    "client_python": "3.13.18",
+    "client_platform": "Linux",
+    "notebook_file": "notebooks/multimodal_embeddings_benchmark.ipynb",
+    "notebook_file_sha256": "3b09238881a3a374f7e27fe33b69c9246780d45065604e889818cfac5b04a6d1",
+    "client_network": "Local workspace CPU client to remote HTTPS API",
+    "dataset": "Public default benchmark text and deterministic 128x128 RGB gradient PNG",
+    "post_requests": 35,
+    "embedding_items": 38,
+    "scope": [
+      "warm",
+      "concurrent",
+      "mixed_batch"
+    ],
+    "server_runtime_files_sha256": {
+      "modal_app.py": "fcba394b94c4c44ef38af42581a46a7130572bbffcc5018ab973ed8662e2a252",
+      "src/multimodal_embeddings_ai_inference/api.py": "e0bba24da1b121b726dae41cd69c3d91091b9336210939c9b53943d6f543ab6c",
+      "src/multimodal_embeddings_ai_inference/config.py": "0e7d47224c375a6913aa8de3971fc26ab3366650bb92627cb308f5589fd92a8e",
+      "src/multimodal_embeddings_ai_inference/service.py": "1b48c42b2afebbf952becf06ed4143161df43ab88ce8f5597d6f9ea0bec184d4"
+    },
+    "deployment_settings": {
+      "gpu_per_model": "L40S",
+      "gateway_http_inputs": 16,
+      "max_inflight_requests": 4,
+      "inference_timeout_seconds": 60
+    },
+    "server_source_note": "Server source identity and GPU hardware are operator configuration, not independently attested by API timing."
+  }
+}

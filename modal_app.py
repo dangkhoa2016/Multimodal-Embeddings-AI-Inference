@@ -20,17 +20,20 @@ volume = modal.Volume.from_name(
     os.getenv("CF_MODEL_VOLUME_NAME", "compactfaces-ai-weights"),
     create_if_missing=True,
 )
-common = (
-    modal.Image.debian_slim(python_version="3.11")
-    .pip_install("fastapi>=0.110,<1", "pydantic>=2.6,<3", "numpy>=1.26,<3", "pillow>=10.2,<13")
-    .add_local_dir(str(ROOT / "src"), remote_path="/opt/cf-src", copy=True)
-    .env({"PYTHONPATH": "/opt/cf-src", "CF_BACKEND": "modal"})
+base_image = modal.Image.debian_slim(python_version="3.11").pip_install(
+    "fastapi>=0.110,<1",
+    "pydantic>=2.6,<3",
+    "numpy>=1.26,<3",
+    "pillow>=10.2,<13",
+)
+common = base_image.env({"PYTHONPATH": "/opt/cf-src", "CF_BACKEND": "modal"}).add_local_dir(
+    str(ROOT / "src"), remote_path="/opt/cf-src"
 )
 # Two isolated Python environments inside ONE GPU container. They are deliberately
 # not two Modal functions; deploying separate GPU functions could reserve two GPUs.
 # This image is large because both Python environments include CUDA torch packages.
 gpu_image = (
-    common.apt_install("git")
+    base_image.apt_install("git")
     .run_commands(
         "python -m venv /opt/venv-qwen",
         (
@@ -60,8 +63,11 @@ gpu_image = (
             "CF_MODEL_ROOT": "/models/checkpoints",
             "HF_HUB_OFFLINE": "1",
             "CF_QWEN_SOURCE_PATH": "/opt/Qwen3-VL-Embedding",
+            "PYTHONPATH": "/opt/cf-src",
+            "CF_BACKEND": "modal",
         }
     )
+    .add_local_dir(str(ROOT / "src"), remote_path="/opt/cf-src")
 )
 
 

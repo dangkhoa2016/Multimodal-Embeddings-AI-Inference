@@ -53,6 +53,17 @@ class ModelSupervisor:
             raise TimeoutError("Model worker response timed out")
         line = self.pipe.readline()
         if not line:
+            # Log the model import traceback to Modal server logs, never to API clients.
+            try:
+                if self.log_handle is not None:
+                    self.log_handle.flush()
+                    path = Path(self.log_handle.name)
+                    with path.open("rb") as output:
+                        output.seek(max(0, path.stat().st_size - 4000))
+                        diagnostic = output.read().decode("utf-8", errors="replace")
+                    print("GPU worker exited. Last diagnostic lines:\n" + diagnostic, flush=True)
+            except OSError:
+                print("GPU worker exited; diagnostic log unavailable", flush=True)
             self.close()
             raise RuntimeError("GPU model worker exited unexpectedly")
         return json.loads(line)

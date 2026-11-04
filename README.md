@@ -4,7 +4,7 @@
 
 **Language:** English | [Tiếng Việt](README.vi.md)
 
-> **Release status — v0.2.0:** Local API contract, authentication, data validation, shared worker routing and subprocess switching are covered by offline tests. **No real Modal L40S deployment, pretrained inference, or face-recognition accuracy has been verified.** Do not present mock vectors as AI results.
+> **Release status — v0.2.1:** Deployed on Modal L40S; both Qwen3-VL-Embedding-8B and WeMM-Embedding-9B **passed real image inference** with finite 1,024-dimensional normalized vectors. Gateway authentication (401/200), Ruff and 26 offline tests also passed. This establishes API/model execution, **not face-recognition accuracy or a biometric benchmark**. Mock vectors must never be used for AI evaluation.
 
 ## What it does
 
@@ -188,3 +188,5 @@ compactfaces-ai-inference/
 See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), [CHANGELOG.md](CHANGELOG.md). Original repository-owned source/docs are MIT licensed. Pretrained model weights and upstream code are **not included** and retain their own licenses. CompactFaces dataset images are distributed separately under their stated noncommercial conditions; the code MIT license does not grant image usage rights. See [LICENSE-NOTES.md](LICENSE-NOTES.md).
 
 **Maintainer:** Đăng Khoa · contact: `i.am@dangkhoa.dev`.
+
+See also: [Modal operations and release verification](docs/OPERATIONS.md).

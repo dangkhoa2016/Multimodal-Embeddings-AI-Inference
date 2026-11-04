@@ -4,7 +4,7 @@
 
 **Ngôn ngữ:** [English](README.md) | Tiếng Việt
 
-> **Trạng thái v0.2.0:** Đã kiểm thử offline các API contract, xác thực, validation, định tuyến và chuyển đổi tiến trình model. **Chưa triển khai thành công trên Modal L40S hoặc chạy inference thật hai checkpoint.** Tuyệt đối không coi mock vector là kết quả AI.
+> **Trạng thái v0.2.1:** Đã deploy trên Modal L40S; Qwen3-VL-Embedding-8B và WeMM-Embedding-9B **đều PASS inference ảnh thật**, trả vector 1.024 chiều hữu hạn và chuẩn hóa L2. Xác thực Gateway (401/200), Ruff và 26 kiểm thử offline cũng đã PASS. Đây là bằng chứng API/model chạy được, **không phải kết quả đánh giá độ chính xác nhận diện khuôn mặt**. Không dùng mock vector để báo cáo AI.
 
 ## Chức năng chính
 
@@ -171,3 +171,5 @@ Tài liệu khác: [Shared Volume](docs/SHARED_VOLUME.md), [khắc phục lỗi]
 **Phạm vi license:** mã nguồn/tài liệu do dự án sở hữu dùng MIT. Model weights và thư viện upstream có giấy phép riêng. Dữ liệu CompactFaces công bố riêng với phạm vi CC BY-NC 4.0; MIT cho code không đồng nghĩa có quyền thương mại đối với ảnh.
 
 **Tác giả:** Đăng Khoa · Liên hệ: `i.am@dangkhoa.dev`.
+
+Xem thêm: [Vận hành Modal và nghiệm thu](docs/OPERATIONS.vi.md).

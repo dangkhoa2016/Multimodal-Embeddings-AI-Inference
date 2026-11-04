@@ -5,7 +5,8 @@ import logging
 import os
 from collections import defaultdict
 
-from .validation import Prepared, normalize_vector
+from .validation import Prepared
+from .vector_utils import normalize_vector
 
 logger = logging.getLogger(__name__)
 

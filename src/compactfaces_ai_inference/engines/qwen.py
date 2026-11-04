@@ -4,7 +4,7 @@ import os
 import sys
 
 from ..checkpoints import require_checkpoint
-from ..validation import image_from_bytes, normalize_vector
+from ..vector_utils import image_from_bytes, normalize_vector
 
 
 class QwenVLEncoder:

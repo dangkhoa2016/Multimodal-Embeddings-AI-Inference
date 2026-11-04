@@ -46,7 +46,7 @@ gpu_image = (
         "python -m venv /opt/venv-wemm",
         (
             "/opt/venv-wemm/bin/pip install --no-cache-dir "
-            "'torch==2.8.*' 'transformers==5.2.0' "
+            "'torch==2.8.*' 'torchvision>=0.23,<0.24' 'transformers==5.2.0' "
             "'accelerate>=1.1,<3' 'qwen-vl-utils==0.0.14' "
             "'huggingface-hub>=0.33,<2' numpy pillow"
         ),
@@ -73,6 +73,8 @@ gpu_image = (
 
 @app.cls(
     gpu="L40S",
+    cpu=8,
+    memory=65536,
     image=gpu_image,
     secrets=[secret],
     volumes={"/models": volume},

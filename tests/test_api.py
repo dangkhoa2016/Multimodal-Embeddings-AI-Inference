@@ -9,7 +9,7 @@ from PIL import Image
 from compactfaces_ai_inference.api import create_app
 from compactfaces_ai_inference.config import Settings
 from compactfaces_ai_inference.service import InferenceService
-from compactfaces_ai_inference.validation import normalize_vector
+from compactfaces_ai_inference.vector_utils import normalize_vector
 
 TOKEN = "test-secret-at-least-16-characters"
 AUTH = {"Authorization": f"Bearer {TOKEN}"}

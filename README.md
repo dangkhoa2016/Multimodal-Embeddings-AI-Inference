@@ -4,7 +4,7 @@
 
 **Language:** English | [Tiếng Việt](README.vi.md)
 
-> **Release status — v0.2.1:** Deployed on Modal L40S; both Qwen3-VL-Embedding-8B and WeMM-Embedding-9B **passed real image inference** with finite 1,024-dimensional normalized vectors. Gateway authentication (401/200), Ruff and 26 offline tests also passed. This establishes API/model execution, **not face-recognition accuracy or a biometric benchmark**. Mock vectors must never be used for AI evaluation.
+> **Release status — v0.2.1:** Deployed on Modal L40S; both Qwen3-VL-Embedding-8B and WeMM-Embedding-9B **passed real image inference** with finite 1,024-dimensional normalized vectors. Authenticated real HTTPS embedding requests, Gateway authentication (401/200), Ruff and offline tests also passed. This establishes API/model execution, **not face-recognition accuracy or a biometric benchmark**. Mock vectors must never be used for AI evaluation.
 
 **Live verification evidence:** [2026-11-04 REST/GPU results](docs/VERIFICATION.md).
 

@@ -2,20 +2,14 @@
 
 ## 0.2.1 — 2026-11-04
 
-- Deployed authenticated Modal FastAPI gateway and one NVIDIA L40S GPU class.
-- Verified both official checkpoints from a shared Modal Volume, returning 1,024-dimensional finite, normalized embeddings with a real CompactFaces synthetic image.
-- Fixed isolated subprocess dependencies: split GPU-safe vector utilities from FastAPI and added torchvision for WeMM Transformers 5.2.0 video processor initialization.
-- Added explicit 8 CPU cores/64 GiB RAM, GPU diagnostic logs, source-only mount for rapid redeploy, and cross-model switch smoke script.
-- Fixed local setup for environments without ensurepip, added bilingual operations runbooks and Ruff enforcement in CI.
-- Verified Ruff clean and 26/26 offline tests. Biometric recognition accuracy remains unmeasured.
-- Follow-up verification: direct Qwen/WeMM/Qwen GPU smoke and authenticated HTTPS POST for both models PASS; recorded 9 gateway auth/contract checks and bilingual evidence. CI now enforces manifest and tracked-secret audits.
+- Deployed authenticated FastAPI embeddings on a shared NVIDIA L40S worker with isolated Qwen and WeMM runtimes.
+- Verified real GPU inference, Qwen → WeMM → Qwen model switching, and authenticated HTTPS embedding requests for both models.
+- Added bilingual operations and verification documentation, API contract tests, linting and source integrity checks.
+- Hardened public-source defaults by disabling interactive OpenAPI documentation and removing deployment-specific identifiers.
+- Clarified that image retrieval research evidence does not establish biometric accuracy or production readiness.
 
 ## 0.2.0 — 2026-11-04
 
-- Select two officially available large multimodal embedding models: Qwen3-VL-Embedding-8B and Tencent WeMM-Embedding-9B.
-- Route both through **one Modal L40S GPU worker** using process-level model switching.
-- Share one Modal Volume for both pinned checkpoint downloads.
-- Add owner-only local secret generation and Modal CLI upload helper.
-- Add offline model-switching tests, local REST contract tests, GitHub Actions CI and bilingual documentation.
-
-**Limit:** GPU inference, VRAM use and cold-start performance have not been validated on Modal.
+- Introduced independent Qwen3-VL-Embedding-8B and Tencent WeMM-Embedding-9B inference adapters.
+- Implemented one Modal L40S GPU worker with model subprocess switching and a shared Volume of pinned checkpoints.
+- Added authenticated API routes, deterministic local mocks, setup scripts and Rails 8 integration examples.

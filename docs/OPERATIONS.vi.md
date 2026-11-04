@@ -47,7 +47,8 @@ Token được lưu cục bộ tại `~/.config/compactfaces-ai-inference/modal-
 modal deploy modal_app.py
 ```
 
-Lấy HTTPS URL triển khai từ Modal và cấu hình ngoài Git.
+Lấy HTTPS URL thật từ lệnh `modal deploy modal_app.py` và cấu hình riêng trong môi trường triển khai.
+Không commit URL triển khai, định danh tài khoản hoặc thông tin cấu hình riêng vào repository.
 
 URL thay đổi theo workspace của Modal. Rails phải cho cấu hình URL/token, không hardcode.
 

@@ -4,6 +4,7 @@ Report vulnerabilities privately by email to `i.am@dangkhoa.dev` rather than fil
 
 ## Security boundaries
 
+- Interactive API documentation endpoints (`/docs`, `/redoc`, `/openapi.json`) are disabled in the published deployment source.
 - All `/v1/*` routes require a secret `CF_API_TOKEN`; never commit the token. This is *application-level* Bearer authentication. Optional Modal Proxy Authentication would be a separate layer requiring integration changes.
 - The API accepts image bytes encoded as Base64; it does not fetch arbitrary URLs. Images are validated as JPEG/PNG/WebP and bound by size and pixel count.
 - Uploaded images are processed in memory and are not intentionally persisted by the gateway. Server log policy must not include raw images, Base64 input or embeddings.

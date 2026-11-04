@@ -22,4 +22,4 @@
 7. Ảnh lỗi bị từ chối; lỗi nội bộ không lộ token, stack trace, đường dẫn nhạy cảm.
 8. Chỉ công bố kết quả benchmark sau khi có đánh giá dữ liệu và giao thức test độc lập.
 
-**Bản source hiện mới có bằng chứng kiểm thử offline, chưa nghiệm thu GPU.**
+Kiểm thử L40S thực và REST API có xác thực đã được ghi nhận tại [báo cáo nghiệm thu](VERIFICATION.vi.md). Điều này không chứng minh độ chính xác sinh trắc, throughput dài hạn, SLA hoặc VRAM peak.

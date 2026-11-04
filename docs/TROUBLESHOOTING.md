@@ -24,4 +24,4 @@
 7. **Failure:** invalid image rejected; missing snapshot or failed model gives sanitized error.
 8. **Benchmark:** real CompactFaces dataset validation and independently scoped research metrics; avoid biometric accuracy overclaims.
 
-**No GPU evidence is included with the offline release.** Attach a dated report with exact commit SHA, model revisions, GPU, memory peak and timing before publishing benchmark claims.
+Real L40S inference and authenticated REST smoke evidence are documented in [verification results](VERIFICATION.md). This does not establish biometric accuracy, sustained throughput, production SLAs, or peak VRAM.

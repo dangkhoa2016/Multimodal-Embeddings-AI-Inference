@@ -26,6 +26,9 @@ def create_app(
         title="CompactFaces AI Inference API",
         version=__version__,
         description="Authenticated image/text embeddings for research, not biometric verification.",
+        docs_url=None,
+        redoc_url=None,
+        openapi_url=None,
     )
 
     @app.middleware("http")

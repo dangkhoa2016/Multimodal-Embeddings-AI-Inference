@@ -47,7 +47,8 @@ The local token copy is kept in `~/.config/compactfaces-ai-inference/modal-secre
 modal deploy modal_app.py
 ```
 
-Obtain the HTTPS deployment URL from Modal and configure it outside version control.
+Read the HTTPS URL printed by `modal deploy modal_app.py` and configure it per environment.
+Do not commit deployed URLs, account identifiers or environment-specific values.
 
 The URL can differ by workspace and environment. Store it in Rails settings, not hardcoded business logic.
 

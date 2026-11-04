@@ -4,7 +4,7 @@
 
 **Ngôn ngữ:** [English](README.md) | Tiếng Việt
 
-> **Trạng thái v0.2.1:** Đã deploy trên Modal L40S; Qwen3-VL-Embedding-8B và WeMM-Embedding-9B **đều PASS inference ảnh thật**, trả vector 1.024 chiều hữu hạn và chuẩn hóa L2. Xác thực Gateway (401/200), Ruff và 26 kiểm thử offline cũng đã PASS. Đây là bằng chứng API/model chạy được, **không phải kết quả đánh giá độ chính xác nhận diện khuôn mặt**. Không dùng mock vector để báo cáo AI.
+> **Trạng thái v0.2.1:** Đã deploy trên Modal L40S; Qwen3-VL-Embedding-8B và WeMM-Embedding-9B **đều PASS inference ảnh thật**, trả vector 1.024 chiều hữu hạn và chuẩn hóa L2. Gọi HTTPS POST embedding thật, xác thực Gateway (401/200), Ruff và kiểm thử offline đều PASS. Đây là bằng chứng API/model chạy được, **không phải kết quả đánh giá độ chính xác nhận diện khuôn mặt**. Không dùng mock vector để báo cáo AI.
 
 **Bằng chứng nghiệm thu trực tiếp:** [Kết quả REST/GPU ngày 04/11/2026](docs/VERIFICATION.vi.md).
 
@@ -30,7 +30,7 @@ Tencent **không có checkpoint WeMM-Embedding-8B chính thức** trong danh m�
 ## Kiến trúc
 
 ```text
-Rails 8 (dự kiến)
+Rails 8 (ứng dụng dự kiến)
     | HTTPS + Bearer token
     v
 FastAPI Gateway (CPU)

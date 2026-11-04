@@ -36,6 +36,12 @@ def test_auth_protects_all_routes(client):
     assert client.post("/v1/embeddings", json={}).status_code == 401
 
 
+def test_api_documentation_routes_are_disabled(client):
+    for path in ("/docs", "/redoc", "/openapi.json"):
+        assert client.get(path).status_code == 404
+        assert client.get(path, headers=AUTH).status_code == 404
+
+
 def test_health_explicitly_says_mock(client):
     result = client.get("/v1/health", headers=AUTH)
     assert result.status_code == 200

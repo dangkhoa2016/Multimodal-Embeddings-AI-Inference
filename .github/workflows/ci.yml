@@ -24,6 +24,38 @@ jobs:
         run: ruff check src modal_app.py modal_models.py scripts tests
       - name: Run contract and subprocess-isolation tests
         run: pytest -q
-      - name: Verify that no model weights or .env are tracked
+      - name: Verify SHA256 manifest integrity
+        run: sha256sum --check --strict SHA256SUMS.txt
+      - name: Reject tracked credentials, model weights and image assets
         run: |
-          ! git ls-files | grep -E '(^|/)(\.env|models|checkpoints)/|\.(safetensors|gguf|pth|pt)$'
+          python - <<'AUDIT'
+          from pathlib import Path
+          import re
+          import subprocess
+
+          names = [s.decode() for s in subprocess.check_output(
+              ["git", "ls-files", "-z"]).split(b"\0") if s]
+          problems = []
+          forbidden_ext = {".safetensors", ".gguf", ".pth", ".pt",
+                           ".onnx", ".pem", ".png", ".jpg", ".jpeg", ".webp"}
+          for name in names:
+              path = Path(name)
+              parts = path.parts
+              if (any(p in {"models", "weights", "checkpoints", ".secrets"}
+                      for p in parts) or path.suffix.lower() in forbidden_ext
+                  or (path.name.startswith(".env") and path.name != ".env.example")
+                  or path.name in {"secret.env", "modal-secret.env"}):
+                  problems.append((name, "forbidden file"))
+                  continue
+              content = path.read_bytes()
+              if ((b"-----BEGIN " + b"PRIVATE KEY") in content
+                  or re.search(rb"hf_[a-zA-Z0-9]{25,}", content)
+                  or re.search(rb"gh[pousr]_[a-zA-Z0-9]{25,}", content)
+                  or re.search(rb"github_pat_[a-zA-Z0-9_]{20,}", content)):
+                  problems.append((name, "potential credential"))
+          for name, reason in problems:
+              print(f"REJECT {reason}: {name}")
+          if problems:
+              raise SystemExit(1)
+          print(f"PASS: audited {len(names)} tracked files")
+          AUDIT

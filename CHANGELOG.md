@@ -8,6 +8,7 @@
 - Added explicit 8 CPU cores/64 GiB RAM, GPU diagnostic logs, source-only mount for rapid redeploy, and cross-model switch smoke script.
 - Fixed local setup for environments without ensurepip, added bilingual operations runbooks and Ruff enforcement in CI.
 - Verified Ruff clean and 26/26 offline tests. Biometric recognition accuracy remains unmeasured.
+- Follow-up verification: direct Qwen/WeMM/Qwen GPU smoke and authenticated HTTPS POST for both models PASS; recorded 9 gateway auth/contract checks and bilingual evidence. CI now enforces manifest and tracked-secret audits.
 
 ## 0.2.0 — 2026-11-04
 

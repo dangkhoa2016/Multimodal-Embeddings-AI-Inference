@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerabilities / Lỗ hổng bảo mật
+    url: https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/SECURITY.md
+    about: Report privately; never include credentials or personal images in an issue.
+  - name: Setup and troubleshooting / Cài đặt và khắc phục lỗi
+    url: https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/docs/TROUBLESHOOTING.md
+    about: Read the troubleshooting guide before submitting a support question.

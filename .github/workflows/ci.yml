@@ -1,0 +1,134 @@
+name: CI
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tests:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install CPU-only project and test dependencies
+        run: |
+          if [ -f README.md ]; then
+            python -m pip install -c constraints/cpu.txt -e '.[dev]'
+          else
+            # Install CPU dependencies directly if the package README is unavailable.
+            python -m pip install -c constraints/cpu.txt 'fastapi>=0.110,<1' 'uvicorn>=0.29,<1' 'pydantic>=2.6,<3' 'pillow>=10.2,<13' 'numpy>=1.26,<3' 'pytest>=8,<10' 'httpx>=0.27,<1' 'ruff>=0.8,<1'
+          fi
+      - name: Compile Python package without GPU
+        run: python -m compileall -q src modal_app.py modal_models.py
+      - name: Lint source, scripts and tests
+        run: ruff check src modal_app.py modal_models.py scripts tests
+      - name: Check standalone notebook source synchronization
+        run: python scripts/sync_notebooks.py --check
+      - name: Run API contract and notebook-client tests
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q
+      - name: Validate dedicated benchmark notebook
+        if: ${{ hashFiles('notebooks/multimodal_embeddings_benchmark.ipynb') != '' }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("notebooks/multimodal_embeddings_benchmark.ipynb")
+          book = json.loads(path.read_text(encoding="utf-8"))
+          assert book["nbformat"] == 4 and book["nbformat_minor"] >= 5
+          code = "\n".join("".join(c["source"]) for c in book["cells"] if c["cell_type"] == "code")
+          assert "RUN_BENCHMARK = False" in code
+          assert "COLD_IDLE_WAIT_SECONDS = (" in code
+          assert "COLD_WINDOW_PADDING_SECONDS" in code
+          for cell in book["cells"]:
+              if cell["cell_type"] == "code":
+                  assert cell["execution_count"] is None and cell["outputs"] == []
+                  compile("".join(cell["source"]), cell["id"], "exec")
+          print("PASS independent benchmark notebook")
+          PY
+      - name: Validate bilingual docs, local Markdown links and workflow structure
+        if: ${{ hashFiles('README.md') != '' }}
+        run: python scripts/audit_release.py
+      - name: Verify source SHA256 integrity manifest
+        if: ${{ hashFiles('SHA256SUMS.txt') != '' && hashFiles('README.md') != '' }}
+        run: |
+          python - <<'PY'
+          import hashlib
+          import subprocess
+          from pathlib import Path
+
+          tracked = set(subprocess.check_output(["git", "ls-files"], text=True).splitlines())
+          entries = {}
+          for line in Path("SHA256SUMS.txt").read_text().splitlines():
+              digest, filename = line.split("  ", 1)
+              assert filename not in entries, filename
+              entries[filename] = digest
+          assert set(entries) == tracked - {"SHA256SUMS.txt"}, (
+              "Manifest must cover all existing tracked files, and no future files"
+          )
+          for filename, digest in entries.items():
+              assert hashlib.sha256(Path(filename).read_bytes()).hexdigest() == digest, filename
+          print(f"PASS verified {len(entries)} tracked assets")
+          PY
+      - name: Validate source version, README badges and release tag
+        if: ${{ hashFiles('README.md') != '' }}
+        run: |
+          python - <<'PY'
+          import os
+          import tomllib
+          from pathlib import Path
+          version = tomllib.loads(Path("pyproject.toml").read_text())["project"]["version"]
+          for path in (Path("README.md"), Path("README.vi.md")):
+              content = path.read_text()
+              assert version in content, f"{path}: version missing"
+              assert "actions/workflows/ci.yml/badge.svg" in content
+              assert "img.shields.io/badge/" in content
+          if os.getenv("GITHUB_REF_TYPE") == "tag":
+              assert os.getenv("GITHUB_REF_NAME") == "v" + version
+          print(f"PASS: source version {version}, README badges and tag (if supplied)")
+          PY
+      - name: Reject tracked credentials, weights and image assets
+        run: |
+          python - <<'AUDIT'
+          from pathlib import Path
+          import re
+          import subprocess
+
+          names = [s.decode() for s in subprocess.check_output(
+              ["git", "ls-files", "-z"]).split(b"\0") if s]
+          problems = []
+          forbidden_ext = {".safetensors", ".gguf", ".pth", ".pt",
+                           ".onnx", ".pem", ".png", ".jpg", ".jpeg", ".webp"}
+          for name in names:
+              path = Path(name)
+              if (any(part in {"models", "weights", "checkpoints", ".secrets"}
+                      for part in path.parts) or path.suffix.lower() in forbidden_ext
+                  or (path.name.startswith(".env") and path.name != ".env.example")
+                  or path.name in {"secret.env", "modal-secret.env"}):
+                  problems.append((name, "forbidden file"))
+                  continue
+              content = path.read_bytes()
+              if ((b"-----BEGIN " + b"PRIVATE KEY") in content
+                  or re.search(rb"hf_[a-zA-Z0-9]{25,}", content)
+                  or re.search(rb"gh[pousr]_[a-zA-Z0-9]{25,}", content)
+                  or re.search(rb"github_pat_[a-zA-Z0-9_]{20,}", content)):
+                  problems.append((name, "potential credential"))
+          for name, reason in problems:
+              print(f"REJECT {reason}: {name}")
+          if problems:
+              raise SystemExit(1)
+          print(f"PASS: audited {len(names)} tracked files")
+          AUDIT

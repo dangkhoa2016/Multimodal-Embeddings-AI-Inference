@@ -1,0 +1,135 @@
+{
+  "kind": "live_modal_overload_check",
+  "started_at_utc": "2026-11-08T23:11:41.522177+00:00",
+  "post_attempts": 10,
+  "automatic_post_retries": 0,
+  "status_counts": {
+    "200": 4,
+    "429": 6
+  },
+  "source_sha256": {
+    "modal_app.py": "fcba394b94c4c44ef38af42581a46a7130572bbffcc5018ab973ed8662e2a252",
+    "src/multimodal_embeddings_ai_inference/api.py": "e0bba24da1b121b726dae41cd69c3d91091b9336210939c9b53943d6f543ab6c",
+    "src/multimodal_embeddings_ai_inference/config.py": "0e7d47224c375a6913aa8de3971fc26ab3366650bb92627cb308f5589fd92a8e",
+    "src/multimodal_embeddings_ai_inference/service.py": "1b48c42b2afebbf952becf06ed4143161df43ab88ce8f5597d6f9ea0bec184d4"
+  },
+  "dimension": 64,
+  "deployment_settings": {
+    "gpu_per_model": "L40S",
+    "gateway_http_inputs": 16,
+    "max_inflight_requests": 4,
+    "inference_timeout_seconds": 60
+  },
+  "health_before": {
+    "status": 200,
+    "elapsed_seconds": 5.358
+  },
+  "health_during": {
+    "status": 200,
+    "elapsed_seconds": 1.108
+  },
+  "health_after": {
+    "status": 200,
+    "elapsed_seconds": 1.135
+  },
+  "requests": [
+    {
+      "index": 0,
+      "model": "qwen3-vl-embedding-8b",
+      "status": 200,
+      "elapsed_seconds": 19.391,
+      "retry_after": null,
+      "revision": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+      "validated_dimension": 64,
+      "model_state": "initial_load",
+      "gpu_worker_first_request": true
+    },
+    {
+      "index": 1,
+      "model": "wemm-embedding-9b",
+      "status": 429,
+      "elapsed_seconds": 1.377,
+      "retry_after": "1",
+      "detail": "Inference concurrency limit reached"
+    },
+    {
+      "index": 2,
+      "model": "qwen3-vl-embedding-8b",
+      "status": 200,
+      "elapsed_seconds": 19.597,
+      "retry_after": null,
+      "revision": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+      "validated_dimension": 64,
+      "model_state": "warm",
+      "gpu_worker_first_request": false
+    },
+    {
+      "index": 3,
+      "model": "wemm-embedding-9b",
+      "status": 200,
+      "elapsed_seconds": 28.085,
+      "retry_after": null,
+      "revision": "00c52839de57a6d4fd5b78cf5522ccf0ac8ea482",
+      "validated_dimension": 64,
+      "model_state": "initial_load",
+      "gpu_worker_first_request": true
+    },
+    {
+      "index": 4,
+      "model": "qwen3-vl-embedding-8b",
+      "status": 429,
+      "elapsed_seconds": 1.782,
+      "retry_after": "1",
+      "detail": "Inference concurrency limit reached"
+    },
+    {
+      "index": 5,
+      "model": "wemm-embedding-9b",
+      "status": 200,
+      "elapsed_seconds": 28.215,
+      "retry_after": null,
+      "revision": "00c52839de57a6d4fd5b78cf5522ccf0ac8ea482",
+      "validated_dimension": 64,
+      "model_state": "warm",
+      "gpu_worker_first_request": false
+    },
+    {
+      "index": 6,
+      "model": "qwen3-vl-embedding-8b",
+      "status": 429,
+      "elapsed_seconds": 1.785,
+      "retry_after": "1",
+      "detail": "Inference concurrency limit reached"
+    },
+    {
+      "index": 7,
+      "model": "wemm-embedding-9b",
+      "status": 429,
+      "elapsed_seconds": 1.377,
+      "retry_after": "1",
+      "detail": "Inference concurrency limit reached"
+    },
+    {
+      "index": 8,
+      "model": "qwen3-vl-embedding-8b",
+      "status": 429,
+      "elapsed_seconds": 1.592,
+      "retry_after": "1",
+      "detail": "Inference concurrency limit reached"
+    },
+    {
+      "index": 9,
+      "model": "wemm-embedding-9b",
+      "status": 429,
+      "elapsed_seconds": 1.791,
+      "retry_after": "1",
+      "detail": "Inference concurrency limit reached"
+    }
+  ],
+  "provider_call_graph_review": {
+    "http_calls_reviewed": 10,
+    "successful_gpu_calls": 4,
+    "rejected_requests_with_gpu_calls": 0
+  },
+  "interpretation": "The burst exercises admission and health responsiveness. Its accepted requests include model initialization; use the separate serving report for warm latency. Deadline expiry and remote cancellation are covered separately by automated regression tests."
+}

@@ -64,6 +64,12 @@ def test_demo_previews_use_localized_html_regions():
     assert '<div lang="en"><strong>Actual inference inputs' in results
     assert '<div lang="vi"><strong>Ảnh thực sự dùng cho inference' in results
     assert "Actual inference inputs / Ảnh thực sự" not in results
+    assert 'aria-label="Built-in image previews / Hình ảnh nhúng sẵn"' not in samples
+    assert 'aria-label="Built-in image previews"' in samples
+    assert 'show_stage("Results / Kết quả"' not in results
+    assert 'show_stage("5 / 5", "Preview only — no cosine scores"' in results
+    assert '"cached / từ cache"' not in results
+    assert '"cached" if language == "en" else "từ cache"' in results
 
 
 def test_release_download_checksum_list_is_flat_and_nonrecursive(tmp_path):
@@ -87,3 +93,18 @@ def test_release_download_checksum_list_is_flat_and_nonrecursive(tmp_path):
         ["python", str(script), "--output", str(generated), "--check"],
         check=True, capture_output=True, text=True,
     )
+
+
+def test_readme_stable_and_development_links_are_distinct():
+    for name in ("README.md", "README.vi.md"):
+        readme = (ROOT / name).read_text(encoding="utf-8")
+        assert "git checkout v1.0.0" in readme
+        notebooks = (
+            "multimodal_embeddings_api_demo.ipynb",
+            "multimodal_embeddings_benchmark.ipynb",
+        )
+        for notebook in notebooks:
+            stable = f"/blob/v1.0.0/notebooks/{notebook}"
+            development = f"/blob/main/notebooks/{notebook}"
+            assert readme.count(stable) == 2
+            assert readme.count(development) == 1

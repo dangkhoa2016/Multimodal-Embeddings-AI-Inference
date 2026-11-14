@@ -555,7 +555,7 @@ def builtin_preview_html():
         '<div lang="vi"><strong>Chỉ ảnh mẫu nhúng sẵn.</strong> '
         'Nếu chọn ảnh riêng, ảnh đó được gửi tới API nhưng không hiển thị ở đây.</div>'
         '</p>'
-        '<div role="group" aria-label="Built-in image previews / Hình ảnh nhúng sẵn" '
+        '<div role="group" aria-label="Built-in image previews" '
         'style="display:flex;flex-wrap:wrap;gap:12px;max-width:960px;">'
         + "".join(cards) + '</div>'
     )
@@ -1471,7 +1471,7 @@ require_current_configuration()
 
 if globals().get("preview_only_mode", False):
     report_html = None
-    show_stage("Results / Kết quả", "Preview only — no cosine scores",
+    show_stage("5 / 5", "Preview only — no cosine scores",
         "Samples are ready, but no embeddings were generated. Enable RUN_API_DEMO and approve GPU jobs for measured results.",
         "Chỉ xem trước — chưa có điểm cosine",
         "Đã chuẩn bị mẫu nhưng chưa tạo embedding. Bật RUN_API_DEMO và phê duyệt GPU job mới để có kết quả đo.")
@@ -1770,7 +1770,7 @@ if not globals().get("preview_only_mode", False):
             f'{t["encode"]} {seconds(timing.get("gpu_encode_ms"))} | '
             f'{t["dispatch"]} {seconds(timing.get("gpu_dispatch_overhead_ms"))} | '
             f'{t["wait"]} ' + (
-                ("cached / từ cache" if response.get("_client_cache_hit") else
+                (("cached" if language == "en" else "từ cache") if response.get("_client_cache_hit") else
                  seconds(response.get("_client_elapsed_ms")))
             ),
         )

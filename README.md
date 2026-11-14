@@ -2,12 +2,14 @@
 
 **An API for image and text embeddings, with MIT-licensed project code and documentation.** Build semantic search, text-to-image retrieval and image similarity features with [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) and [tencent/WeMM-Embedding-9B](https://huggingface.co/tencent/WeMM-Embedding-9B).
 
-[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) [![Version](https://img.shields.io/badge/version-1.0.1-2563EB)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/tag/v1.0.1) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) [![Version](https://img.shields.io/badge/version-1.0.1-2563EB)](pyproject.toml) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/FastAPI-inference-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![Modal L40S](https://img.shields.io/badge/Modal-NVIDIA%20L40S-111827)](https://modal.com/) [![Image and text](https://img.shields.io/badge/input-image%20%2B%20text-0F766E)](docs/API_CONTRACT.md)
 
 🌐 Language / Ngôn ngữ: **English** | [Tiếng Việt](README.vi.md)
 
-**Quick links:** [Try local mock](#try-the-api-locally) · [Open Demo in Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_api_demo.ipynb) · [Open Benchmark in Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_benchmark.ipynb) · [Deploy on Modal](#deploy-on-modal)
+**Quick links:** [Try local mock](#try-the-api-locally) · [Open Demo in Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_api_demo.ipynb) · [Open Benchmark in Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_benchmark.ipynb) · [Deploy on Modal](#deploy-on-modal)
+
+**Release navigation:** The last tagged stable release is `v1.0.0`; the source `1.0.1` version identifies the current development tree. The Colab links above open notebooks from the pinned `v1.0.0` release. For current development changes, use the [main branch](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/tree/main) and its [Demo](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_api_demo.ipynb) or [Benchmark](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_benchmark.ipynb) notebooks instead.
 
 Use the project in your own applications, adapt it to your needs, and contribute improvements. It includes a FastAPI service, deployment on Modal with a dedicated NVIDIA L40S worker for each model, HTTP client examples and bilingual notebooks for Google Colab and Kaggle.
 
@@ -48,6 +50,7 @@ From a Bash terminal, including WSL on Windows:
 ```bash
 git clone https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference.git
 cd Multimodal-Embeddings-AI-Inference
+git checkout v1.0.0
 bash scripts/setup.sh --quick
 bash scripts/quickstart_mock.sh
 ```
@@ -131,7 +134,7 @@ The synchronous API remains available for compatibility.
 
 ## Try the notebook
 
-[Open in Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_api_demo.ipynb) · [Download or view the notebook](notebooks/multimodal_embeddings_api_demo.ipynb) · [Notebook guide](docs/NOTEBOOK_GUIDE.md)
+[Open in Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_api_demo.ipynb) · [Download or view the notebook](notebooks/multimodal_embeddings_api_demo.ipynb) · [Notebook guide](docs/NOTEBOOK_GUIDE.md)
 
 Choose a model, explore the three sample pairs, then connect your API to generate embeddings. The notebook runs on a CPU runtime and shows a bilingual report with a 3 × 3 cosine matrix: **image rows, text columns**. You can preview the bundled images **without an API URL or token**. The example matrix in the notebook remains unchanged; after inference, the Results cell renders a separate measured matrix below it. Custom image paths change the inference inputs. Set `PREVIEW_CUSTOM_IMAGES=True` to also display those images in notebook outputs. Kaggle users can import the same notebook file.
 
@@ -139,7 +142,7 @@ Choose a model, explore the three sample pairs, then connect your API to generat
 
 ## Measure serving performance
 
-[Open the benchmark in Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_benchmark.ipynb) · The [performance notebook](notebooks/multimodal_embeddings_benchmark.ipynb) measures warm latency, optional cold starts, model routing and bounded concurrent requests against your deployment. It exports a JSON report for comparing runs.
+[Open the benchmark in Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_benchmark.ipynb) · The [performance notebook](notebooks/multimodal_embeddings_benchmark.ipynb) measures warm latency, optional cold starts, model routing and bounded concurrent requests against your deployment. It exports a JSON report for comparing runs.
 
 [Recorded GPU results from 2026-11-07](benchmarks/results/README.md) include 35 benchmark POST requests and a separate ten-request overload check. The report describes the deployment measured on that date and links to the original JSON data.
 
@@ -147,7 +150,7 @@ Choose a model, explore the three sample pairs, then connect your API to generat
 
 **Viewing note:** Colab provides compact form controls; Kaggle and other Jupyter viewers may show long implementation cells expanded. Run the numbered configuration and execution cells in order, without editing the hidden helper code. The benchmark report includes a deliberately illustrative layout with unavailable values; only real API responses populate measured results.
 
-**Release asset integrity:** Download the two notebook files, the repository source manifest and `SHA256SUMS.release.txt` together from [GitHub Releases](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/latest). Run `sha256sum -c SHA256SUMS.release.txt` in their download directory. The release checksum list uses downloaded filenames; `SHA256SUMS.txt` instead tracks files by repository-relative paths.
+**Stable source integrity:** The [`v1.0.0` release](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/tag/v1.0.0) provides the two notebooks and a source-tree `SHA256SUMS.txt`. After checking out `v1.0.0`, run `sha256sum -c SHA256SUMS.txt` at the repository root to verify tracked source files. This manifest contains repository-relative paths and is **not** a flat checksum list for separately downloaded notebook assets. Development builds may generate `SHA256SUMS.release.txt` for a future release; do not assume that file is present in `v1.0.0`.
 
 ## Deploy on Modal
 

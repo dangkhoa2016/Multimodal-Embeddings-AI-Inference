@@ -2,12 +2,14 @@
 
 **API tạo embedding ảnh và văn bản, với mã nguồn và tài liệu của dự án được cấp phép MIT.** Xây dựng tính năng tìm kiếm ngữ nghĩa, tìm ảnh bằng văn bản và tìm ảnh tương đồng với [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) và [tencent/WeMM-Embedding-9B](https://huggingface.co/tencent/WeMM-Embedding-9B).
 
-[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) [![Version](https://img.shields.io/badge/version-1.0.1-2563EB)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/tag/v1.0.1) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) [![Version](https://img.shields.io/badge/version-1.0.1-2563EB)](pyproject.toml) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/FastAPI-inference-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![Modal L40S](https://img.shields.io/badge/Modal-NVIDIA%20L40S-111827)](https://modal.com/) [![Image and text](https://img.shields.io/badge/input-image%20%2B%20text-0F766E)](docs/API_CONTRACT.vi.md)
 
 🌐 Ngôn ngữ / Language: [English](README.md) | **Tiếng Việt**
 
-**Truy cập nhanh:** [Chạy thử mock](#thử-api-cục-bộ) · [Mở Demo trên Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_api_demo.ipynb) · [Mở Benchmark trên Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_benchmark.ipynb) · [Triển khai Modal](#triển-khai-trên-modal)
+**Truy cập nhanh:** [Chạy thử mock](#thử-api-cục-bộ) · [Mở Demo trên Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_api_demo.ipynb) · [Mở Benchmark trên Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_benchmark.ipynb) · [Triển khai Modal](#triển-khai-trên-modal)
+
+**Điều hướng phiên bản:** Bản phát hành ổn định được gắn tag gần nhất là `v1.0.0`; phiên bản `1.0.1` trong mã nguồn chỉ nhánh phát triển hiện tại. Các liên kết Colab phía trên mở notebook được ghim tại bản phát hành `v1.0.0`. Để xem những thay đổi đang phát triển, dùng [nhánh main](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/tree/main), [Demo](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_api_demo.ipynb) hoặc [Benchmark](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_benchmark.ipynb) của nhánh này.
 
 Bạn có thể sử dụng dự án trong ứng dụng của mình, tùy chỉnh theo nhu cầu và đóng góp cải tiến cho cộng đồng. Dự án gồm dịch vụ FastAPI, cấu hình triển khai trên Modal với một NVIDIA L40S worker riêng cho mỗi model, ví dụ HTTP client và notebook song ngữ cho Google Colab, Kaggle.
 
@@ -48,6 +50,7 @@ Trong Bash terminal, hoặc WSL trên Windows:
 ```bash
 git clone https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference.git
 cd Multimodal-Embeddings-AI-Inference
+git checkout v1.0.0
 bash scripts/setup.sh --quick
 bash scripts/quickstart_mock.sh
 ```
@@ -131,7 +134,7 @@ API đồng bộ vẫn hoạt động để tương thích.
 
 ## Trải nghiệm notebook
 
-[Mở trên Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_api_demo.ipynb) · [Tải hoặc xem notebook](notebooks/multimodal_embeddings_api_demo.ipynb) · [Hướng dẫn notebook](docs/NOTEBOOK_GUIDE.vi.md)
+[Mở trên Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_api_demo.ipynb) · [Tải hoặc xem notebook](notebooks/multimodal_embeddings_api_demo.ipynb) · [Hướng dẫn notebook](docs/NOTEBOOK_GUIDE.vi.md)
 
 Chọn model, xem ba cặp dữ liệu mẫu rồi kết nối API để tạo embedding. Notebook chạy trên CPU và hiển thị báo cáo song ngữ với ma trận cosine 3 × 3: **hàng là ảnh, cột là văn bản**. Bạn có thể xem ảnh nhúng sẵn **không cần URL API hoặc token**. Ma trận ví dụ trong notebook không thay đổi; sau khi inference, cell Results hiển thị một ma trận kết quả riêng bên dưới. Đường dẫn ảnh tùy chỉnh thay đổi đầu vào inference. Bật `PREVIEW_CUSTOM_IMAGES=True` nếu muốn hiển thị thêm các ảnh đó trong output notebook. Người dùng Kaggle có thể import cùng file notebook này.
 
@@ -139,7 +142,7 @@ Chọn model, xem ba cặp dữ liệu mẫu rồi kết nối API để tạo e
 
 ## Đo hiệu năng phục vụ API
 
-[Mở Benchmark trên Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/main/notebooks/multimodal_embeddings_benchmark.ipynb) · [Notebook hiệu năng](notebooks/multimodal_embeddings_benchmark.ipynb) đo độ trễ warm, cold-start tùy chọn, định tuyến model và các đợt request đồng thời có giới hạn trên deployment của bạn. Kết quả được xuất thành báo cáo JSON để so sánh giữa các lần chạy.
+[Mở Benchmark trên Google Colab](https://colab.research.google.com/github/dangkhoa2016/Multimodal-Embeddings-AI-Inference/blob/v1.0.0/notebooks/multimodal_embeddings_benchmark.ipynb) · [Notebook hiệu năng](notebooks/multimodal_embeddings_benchmark.ipynb) đo độ trễ warm, cold-start tùy chọn, định tuyến model và các đợt request đồng thời có giới hạn trên deployment của bạn. Kết quả được xuất thành báo cáo JSON để so sánh giữa các lần chạy.
 
 [Kết quả đo GPU ngày 2026-11-07](benchmarks/results/README.vi.md) gồm 35 POST benchmark và một lượt kiểm tra quá tải riêng với mười request. Báo cáo mô tả deployment được đo vào ngày đó và liên kết tới dữ liệu JSON gốc.
 
@@ -147,7 +150,7 @@ Mặc định là `RUN_BENCHMARK=False`. Khi bật với cấu hình mặc đị
 
 **Lưu ý giao diện:** Colab có form gọn; Kaggle và các trình xem Jupyter khác có thể mở rộng các code cell dài. Hãy chạy tuần tự cell cấu hình và thực thi; không cần sửa helper code. Báo cáo benchmark có bố cục minh họa với giá trị không khả dụng; chỉ phản hồi API thực tế mới tạo số đo.
 
-**Kiểm tra release assets:** Tải hai file notebook, source manifest của repository và `SHA256SUMS.release.txt` từ [GitHub Releases](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/latest) vào cùng thư mục. Chạy `sha256sum -c SHA256SUMS.release.txt`. Danh sách checksum release dùng tên file tải về; `SHA256SUMS.txt` của repository dùng đường dẫn tương đối trong mã nguồn.
+**Xác minh mã nguồn stable:** [Bản phát hành `v1.0.0`](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/tag/v1.0.0) cung cấp hai notebook và `SHA256SUMS.txt` cho cây mã nguồn. Sau khi checkout `v1.0.0`, chạy `sha256sum -c SHA256SUMS.txt` tại thư mục gốc repository để kiểm tra các tệp mã nguồn. Manifest này dùng đường dẫn tương đối trong repo, **không phải** checksum phẳng dành cho notebook tải riêng. Bản development có thể tạo `SHA256SUMS.release.txt` cho lần phát hành sau; không mặc định coi file đó có trong `v1.0.0`.
 
 ## Triển khai trên Modal
 

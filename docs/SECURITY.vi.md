@@ -2,7 +2,7 @@
 
 🌐 Ngôn ngữ / Language: [English](SECURITY.md) | **Tiếng Việt**
 
-Tài liệu mô tả cơ chế trong source phiên bản **1.0.0**. Đây **không phải**
+Tài liệu mô tả cơ chế trong source phiên bản **1.0.1**. Đây **không phải**
 chứng nhận deployment Modal thực, cấu hình Redis, hạ tầng bên ngoài, việc
 lưu API key hay kết quả inference của model.
 

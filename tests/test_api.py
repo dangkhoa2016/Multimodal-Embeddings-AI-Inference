@@ -56,7 +56,7 @@ def test_health_explicitly_says_mock(client):
     assert result.status_code == 200
     assert result.json()["backend"] == "mock"
     assert "does not prove" in result.json()["note"]
-    assert result.json()["version"] == "1.0.0"
+    assert result.json()["version"] == "1.0.1"
 
 
 def test_model_catalog_only_contains_supported_models(client):

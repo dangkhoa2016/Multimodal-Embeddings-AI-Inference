@@ -2,7 +2,7 @@
 
 🌐 Language / Ngôn ngữ: **English** | [Tiếng Việt](SECURITY.vi.md)
 
-This page documents the controls in source version **1.0.0**. It does **not**
+This page documents the controls in source version **1.0.1**. It does **not**
 certify an actual Modal deployment, Redis operator configuration, external
 infrastructure, key storage, or model inference result.
 

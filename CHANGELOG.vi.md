@@ -2,6 +2,16 @@
 
 🌐 Ngôn ngữ / Language: [English](CHANGELOG.md) | **Tiếng Việt**
 
+## 1.0.1
+
+Bản vá trình bày song ngữ, tính minh bạch của release và tài liệu dành cho cộng đồng.
+
+- Tách tiếng Anh và tiếng Việt trong các output console, nhãn ảnh và bảng kết quả notebook, không thay đổi logic inference hoặc tiêu chí xác nhận benchmark.
+- Bổ sung regression tests kiểm tra cấu trúc output song ngữ và bảo toàn các tùy chọn GPU an toàn mặc định.
+- Cải thiện điều hướng README, làm rõ thông số ví dụ và báo cáo benchmark chỉ mang tính minh họa.
+- Bổ sung công cụ tạo checksum riêng cho các release assets tải về, không thay thế manifest nguồn của repository.
+- Giữ nguyên các kết quả benchmark GPU lịch sử; bản vá này không tuyên bố có phép đo GPU mới.
+
 ## 1.0.0
 
 Embedding ảnh và văn bản, công cụ triển khai cùng notebook để xây dựng ứng dụng đa phương thức.

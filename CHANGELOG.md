@@ -2,6 +2,16 @@
 
 🌐 Language / Ngôn ngữ: **English** | [Tiếng Việt](CHANGELOG.vi.md)
 
+## 1.0.1
+
+Bilingual presentation, release-integrity and community documentation patch.
+
+- Separate English and Vietnamese console messages, image captions and notebook result tables without changing inference logic or benchmark confirmation criteria.
+- Add regression checks for bilingual output structure and safe-by-default GPU options.
+- Improve README navigation, example-setting explanations and clearly illustrative benchmark output layout.
+- Add a dedicated downloadable-release-asset checksum generator, separate from the repository source manifest.
+- Preserve historical GPU benchmark evidence without suggesting that new GPU measurements were performed.
+
 ## 1.0.0
 
 Image and text embeddings, deployment tools and notebooks for building multimodal applications.

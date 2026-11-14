@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "multimodal-embeddings-ai-inference"
-version = "1.0.0"
+version = "1.0.1"
 description = "Authenticated multimodal embedding inference API: Qwen3-VL-Embedding-8B and Tencent WeMM-Embedding-9B on two dedicated Modal L40S workers"
 readme = {text = "Multimodal Embeddings AI Inference is an authenticated FastAPI service for image and text vector embeddings. It supports Qwen3-VL-Embedding-8B and Tencent WeMM-Embedding-9B using separately deployed Modal GPU workers.", content-type = "text/markdown"}
 requires-python = ">=3.11,<3.14"

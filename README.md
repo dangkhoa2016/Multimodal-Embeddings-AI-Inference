@@ -2,7 +2,7 @@
 
 **An API for image and text embeddings, with MIT-licensed project code and documentation.** Build semantic search, text-to-image retrieval and image similarity features with [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) and [tencent/WeMM-Embedding-9B](https://huggingface.co/tencent/WeMM-Embedding-9B).
 
-[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) ![Version](https://img.shields.io/badge/version-1.0.0-2563EB) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) [![Version](https://img.shields.io/badge/version-1.0.1-2563EB)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/tag/v1.0.1) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/FastAPI-inference-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![Modal L40S](https://img.shields.io/badge/Modal-NVIDIA%20L40S-111827)](https://modal.com/) [![Image and text](https://img.shields.io/badge/input-image%20%2B%20text-0F766E)](docs/API_CONTRACT.md)
 
 🌐 Language / Ngôn ngữ: **English** | [Tiếng Việt](README.vi.md)
@@ -23,8 +23,6 @@ Use the project in your own applications, adapt it to your needs, and contribute
 ![Notebook sample gallery and cosine similarity report layout](docs/assets/notebook-preview.svg)
 
 *Illustrative notebook layout; not a measured inference result.*
-
-Deploy the service in your own Modal account, then connect applications or notebooks using its HTTPS URL and an API token. For production use, optional safeguards include hashed API keys per client, isolated async job results and limits on outstanding GPU jobs. Redis/Valkey can share rate limits (measured in embedding units) and synchronous concurrency limits across CPU gateways; shared admission is required when running multiple gateways. See [Modal operations](docs/OPERATIONS.md#distributed-rate-limiting-and-gateway-overload-protection) and the [Security guide](docs/SECURITY.md) for configuration, monitoring and limitations. These safeguards do not replace a workspace budget or spend limit.
 
 ## What you can build
 
@@ -147,6 +145,10 @@ Choose a model, explore the three sample pairs, then connect your API to generat
 
 `RUN_BENCHMARK=False` is the default. Enabling it with the default settings sends **24 POST requests**, including warm-ups. See the [benchmark guide](benchmarks/README.md) for measurement settings, interruption recovery and interpretation.
 
+**Viewing note:** Colab provides compact form controls; Kaggle and other Jupyter viewers may show long implementation cells expanded. Run the numbered configuration and execution cells in order, without editing the hidden helper code. The benchmark report includes a deliberately illustrative layout with unavailable values; only real API responses populate measured results.
+
+**Release asset integrity:** Download the two notebook files, the repository source manifest and `SHA256SUMS.release.txt` together from [GitHub Releases](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/latest). Run `sha256sum -c SHA256SUMS.release.txt` in their download directory. The release checksum list uses downloaded filenames; `SHA256SUMS.txt` instead tracks files by repository-relative paths.
+
 ## Deploy on Modal
 
 For a fresh installation, clone the repository using your GitHub access,
@@ -214,6 +216,10 @@ Any HTTPS client ---> FastAPI Gateway (CPU / Bearer)
 ```
 
 Each GPU worker loads only its assigned model; each worker scales to zero independently. The optional async route additionally uses a detached CPU job coordinator and a Modal Dict for job status and completed vectors.
+
+## Security and operational safeguards
+
+Deploy the service in your own Modal account, then connect applications or notebooks using its HTTPS URL and an API token. For production use, optional safeguards include hashed API keys per client, isolated async job results and limits on outstanding GPU jobs. Redis/Valkey can share rate limits (measured in embedding units) and synchronous concurrency limits across CPU gateways; shared admission is required when running multiple gateways. See [Modal operations](docs/OPERATIONS.md#distributed-rate-limiting-and-gateway-overload-protection) and the [Security guide](docs/SECURITY.md) for configuration, monitoring and limitations. These safeguards do not replace a workspace budget or spend limit.
 
 ## Using the service
 

@@ -2,7 +2,7 @@
 
 **API tạo embedding ảnh và văn bản, với mã nguồn và tài liệu của dự án được cấp phép MIT.** Xây dựng tính năng tìm kiếm ngữ nghĩa, tìm ảnh bằng văn bản và tìm ảnh tương đồng với [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) và [tencent/WeMM-Embedding-9B](https://huggingface.co/tencent/WeMM-Embedding-9B).
 
-[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) ![Version](https://img.shields.io/badge/version-1.0.0-2563EB) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![CI](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/actions/workflows/ci.yml) [![Version](https://img.shields.io/badge/version-1.0.1-2563EB)](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/tag/v1.0.1) [![License: MIT](https://img.shields.io/badge/license-MIT-16A34A)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/FastAPI-inference-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![Modal L40S](https://img.shields.io/badge/Modal-NVIDIA%20L40S-111827)](https://modal.com/) [![Image and text](https://img.shields.io/badge/input-image%20%2B%20text-0F766E)](docs/API_CONTRACT.vi.md)
 
 🌐 Ngôn ngữ / Language: [English](README.md) | **Tiếng Việt**
@@ -23,8 +23,6 @@ Bạn có thể sử dụng dự án trong ứng dụng của mình, tùy chỉn
 ![Thư viện ảnh mẫu và báo cáo cosine trong notebook](docs/assets/notebook-preview.svg)
 
 *Bố cục notebook minh họa; không phải kết quả inference đo thực tế.*
-
-Bạn triển khai dịch vụ trong tài khoản Modal của mình, sau đó kết nối ứng dụng hoặc notebook bằng URL HTTPS và API token. Khi vận hành thực tế, các biện pháp bảo vệ tùy chọn gồm API key được băm riêng cho từng client, cách ly kết quả job bất đồng bộ và giới hạn số GPU job đang chờ hoàn tất. Redis/Valkey cho phép dùng chung hạn mức tốc độ (tính theo số embedding) và giới hạn request đồng bộ đang xử lý giữa các CPU gateway; khi chạy nhiều gateway thì bắt buộc dùng cơ chế kiểm soát chung này. Xem [hướng dẫn vận hành Modal](docs/OPERATIONS.vi.md#rate-limit-phân-tán-và-bảo-vệ-gateway-khi-quá-tải) và [tài liệu Bảo mật](docs/SECURITY.vi.md) để cấu hình, giám sát và hiểu các giới hạn. Những biện pháp này không thay thế ngân sách hoặc giới hạn chi tiêu tại Workspace.
 
 ## Bạn có thể xây dựng gì?
 
@@ -147,6 +145,10 @@ Chọn model, xem ba cặp dữ liệu mẫu rồi kết nối API để tạo e
 
 Mặc định là `RUN_BENCHMARK=False`. Khi bật với cấu hình mặc định, notebook gửi **24 POST request**, gồm cả warm-up. Xem [hướng dẫn benchmark](benchmarks/README.vi.md) để chọn phép đo, xử lý khi ngắt và diễn giải kết quả.
 
+**Lưu ý giao diện:** Colab có form gọn; Kaggle và các trình xem Jupyter khác có thể mở rộng các code cell dài. Hãy chạy tuần tự cell cấu hình và thực thi; không cần sửa helper code. Báo cáo benchmark có bố cục minh họa với giá trị không khả dụng; chỉ phản hồi API thực tế mới tạo số đo.
+
+**Kiểm tra release assets:** Tải hai file notebook, source manifest của repository và `SHA256SUMS.release.txt` từ [GitHub Releases](https://github.com/dangkhoa2016/Multimodal-Embeddings-AI-Inference/releases/latest) vào cùng thư mục. Chạy `sha256sum -c SHA256SUMS.release.txt`. Danh sách checksum release dùng tên file tải về; `SHA256SUMS.txt` của repository dùng đường dẫn tương đối trong mã nguồn.
+
 ## Triển khai trên Modal
 
 Để cài đặt mới, hãy clone repository bằng quyền truy cập GitHub của bạn,
@@ -212,6 +214,10 @@ chi phí và khôi phục. Dùng URL của chính bạn và giữ kín Bearer to
 ```
 
 Mỗi GPU worker chỉ nạp model được phân công; hai worker scale-to-zero độc lập. API async tùy chọn sử dụng thêm CPU job coordinator và Modal Dict để lưu trạng thái cùng vector đã hoàn thành.
+
+## Bảo mật và kiểm soát vận hành
+
+Bạn triển khai dịch vụ trong tài khoản Modal của mình, sau đó kết nối ứng dụng hoặc notebook bằng URL HTTPS và API token. Khi vận hành thực tế, các biện pháp bảo vệ tùy chọn gồm API key được băm riêng cho từng client, cách ly kết quả job bất đồng bộ và giới hạn số GPU job đang chờ hoàn tất. Redis/Valkey cho phép dùng chung hạn mức tốc độ (tính theo số embedding) và giới hạn request đồng bộ đang xử lý giữa các CPU gateway; khi chạy nhiều gateway thì bắt buộc dùng cơ chế kiểm soát chung này. Xem [hướng dẫn vận hành Modal](docs/OPERATIONS.vi.md#rate-limit-phân-tán-và-bảo-vệ-gateway-khi-quá-tải) và [tài liệu Bảo mật](docs/SECURITY.vi.md) để cấu hình, giám sát và hiểu các giới hạn. Những biện pháp này không thay thế ngân sách hoặc giới hạn chi tiêu tại Workspace.
 
 ## Khi sử dụng dịch vụ
 

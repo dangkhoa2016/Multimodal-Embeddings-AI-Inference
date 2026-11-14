@@ -33,7 +33,7 @@ DIMENSION = 1024
 TIMEOUT_SECONDS = 900
 MODELS = ("qwen3-vl-embedding-8b", "wemm-embedding-9b")
 # SHA256 of published code-cell template, excluding this self-referential assignment.
-NOTEBOOK_TEMPLATE_SHA256 = "191d75b7104940c064ff0afde5118f63feffde5bd50b3733a9b06910ed6f3481"
+NOTEBOOK_TEMPLATE_SHA256 = "5e306ac923e8ce84ca121228b97ffd39fbba7f0f9482f7591d6975d13eddc3ab"
 TEXT_SAMPLE = os.environ.get("BENCHMARK_TEXT", "a blue sphere on a light background").strip()
 IMAGE_PATH = os.environ.get("BENCHMARK_IMAGE_PATH", "").strip()
 
@@ -136,8 +136,10 @@ PLANNED_POSTS = {
 PLANNED_POST_TOTAL = sum(PLANNED_POSTS.values())
 # Each mixed batch is one HTTP POST containing two model-specific embedding items.
 PLANNED_EMBEDDING_ITEMS = PLANNED_POST_TOTAL + PLANNED_POSTS["mixed_batch"]
-print("Planned workload (preview only) / Khối lượng dự kiến (chỉ xem trước)")
-print("Authorization / Cho phép chạy:", "ON / BẬT" if RUN_BENCHMARK else "OFF / TẮT")
+print("English: Planned workload (preview only)")
+print("Tiếng Việt: Khối lượng dự kiến (chỉ xem trước)")
+print("English: Authorization:", "ON" if RUN_BENCHMARK else "OFF")
+print("Tiếng Việt: Cho phép chạy:", "BẬT" if RUN_BENCHMARK else "TẮT")
 for phase, english, vietnamese in (
     ("cold", "Cold image requests", "Lượt đo ảnh cold"),
     ("warmup", "Warm-up requests (excluded from measurements)", "Request làm nóng (không tính vào kết quả đo)"),
@@ -148,24 +150,28 @@ for phase, english, vietnamese in (
     ("mixed_batch", "Mixed-batch HTTP requests (two items each)", "HTTP request batch hai model (mỗi request hai item)"),
 ):
     if PLANNED_POSTS[phase]:
-        print(f"  {english} / {vietnamese}: {PLANNED_POSTS[phase]}")
-print("Total planned HTTP POST attempts (upper bound) / "
-      "Tổng lượt HTTP POST dự kiến (giới hạn trên):", PLANNED_POST_TOTAL)
-print("Total planned embedding items / Tổng embedding items dự kiến:",
-      PLANNED_EMBEDDING_ITEMS)
+        print(f"  English: {english}: {PLANNED_POSTS[phase]}")
+        print(f"  Tiếng Việt: {vietnamese}: {PLANNED_POSTS[phase]}")
+print("English: Total planned HTTP POST attempts (upper bound):", PLANNED_POST_TOTAL)
+print("Tiếng Việt: Tổng lượt HTTP POST dự kiến (giới hạn trên):", PLANNED_POST_TOTAL)
+print("English: Total planned embedding items:", PLANNED_EMBEDDING_ITEMS)
+print("Tiếng Việt: Tổng embedding items dự kiến:", PLANNED_EMBEDDING_ITEMS)
 if RUN_COLD:
-    print("Calculated idle only (excludes API/GPU processing) / "
-          "Chỉ tính thời gian chờ cold (không gồm thời gian xử lý API/GPU):",
-          COLD_IDLE_WAIT_SECONDS, "seconds per trial / giây mỗi lượt;",
-          round(COLD_TOTAL_IDLE_SECONDS / 60, 2), "minutes total / phút tổng cộng")
-print("Actual dispatch may stop early; no automatic retry or cost estimate. / "
-      "Lượt gửi thực tế có thể dừng sớm; không tự thử lại hay ước tính chi phí.")
+    print("English: Calculated idle only (excludes API/GPU processing):",
+          COLD_IDLE_WAIT_SECONDS, "seconds per trial;",
+          round(COLD_TOTAL_IDLE_SECONDS / 60, 2), "minutes total")
+    print("Tiếng Việt: Chỉ tính thời gian chờ cold (không gồm thời gian xử lý API/GPU):",
+          COLD_IDLE_WAIT_SECONDS, "giây mỗi lượt;",
+          round(COLD_TOTAL_IDLE_SECONDS / 60, 2), "phút tổng cộng")
+print("English: Actual dispatch may stop early; no automatic retry or cost estimate.")
+print("Tiếng Việt: Lượt gửi thực tế có thể dừng sớm; không tự thử lại hay ước tính chi phí.")
 
 if RUN_COLD:
-    print("Verify your actual Modal settings; displayed defaults are examples only. / Kiểm tra cấu hình Modal thực tế; các giá trị hiển thị chỉ là ví dụ.")
+    print("English: Verify your actual Modal settings; displayed defaults are examples only.")
+    print("Tiếng Việt: Kiểm tra cấu hình Modal thực tế; các giá trị hiển thị chỉ là ví dụ.")
 if not RUN_BENCHMARK:
-    print("OFF / ĐANG TẮT: Set RUN_BENCHMARK=True to authorize live benchmark. / "
-          "Đặt RUN_BENCHMARK=True để cho phép chạy benchmark thật.")
+    print("English: OFF: Set RUN_BENCHMARK=True to authorize live benchmark.")
+    print("Tiếng Việt: ĐANG TẮT: Đặt RUN_BENCHMARK=True để cho phép chạy benchmark thật.")
 # %% NOTEBOOK CELL client
 #@title API client and preflight (run; no edits) / Kết nối và kiểm tra API (chạy, không sửa) { display-mode: "form" }
 import base64
@@ -208,7 +214,7 @@ run_requested_phases = {
 def operator_source_commit(name):
     value = os.environ.get(name, "").strip().lower()
     if value and not re.fullmatch(r"[0-9a-f]{40}", value):
-        raise ValueError(name + " must be a 40-character Git SHA / phải là Git SHA gồm 40 ký tự")
+        raise ValueError(name + "English:  must be a 40-character Git SHA\nTiếng Việt: phải là Git SHA gồm 40 ký tự")
     return {"value": value or None,
             "status": "operator_provided" if value else "unavailable"}
 
@@ -286,11 +292,11 @@ def read_benchmark_image(path):
 
 image_bytes = read_benchmark_image(IMAGE_PATH)
 if not 0 < len(image_bytes) <= 5*1024*1024:
-    raise ValueError("Image must be between 1 and 5,242,880 bytes / Ảnh phải có kích thước từ 1 đến 5.242.880 byte")
+    raise ValueError("English: Image must be between 1 and 5,242,880 bytes\nTiếng Việt: Ảnh phải có kích thước từ 1 đến 5.242.880 byte")
 if not (image_bytes.startswith(b"\x89PNG\r\n\x1a\n")
         or image_bytes.startswith(b"\xff\xd8\xff")
         or (image_bytes[:4] == b"RIFF" and image_bytes[8:12] == b"WEBP")):
-    raise ValueError("Input must be PNG/JPEG/WebP / Đầu vào phải là ảnh PNG/JPEG/WebP")
+    raise ValueError("English: Input must be PNG/JPEG/WebP\nTiếng Việt: Đầu vào phải là ảnh PNG/JPEG/WebP")
 hashes = {"text": hashlib.sha256(TEXT_SAMPLE.encode("utf-8")).hexdigest(),
           "image": hashlib.sha256(image_bytes).hexdigest()}
 
@@ -342,7 +348,7 @@ benchmark_config["run_configuration_sha256"] = run_configuration_sha256
 def assert_run_active(phase):
     """Reject changed settings/inputs and repeated phases before any POST."""
     if run_failure is not None:
-        raise RuntimeError("Earlier benchmark failure; start a new run via client / Benchmark trước đã lỗi; hãy bắt đầu lần chạy mới từ cell client")
+        raise RuntimeError("English: Earlier benchmark failure; start a new run via client\nTiếng Việt: Benchmark trước đã lỗi; hãy bắt đầu lần chạy mới từ cell client")
     try:
         matches = current_run_configuration() == run_configuration_snapshot
     except (OSError, ValueError, TypeError):
@@ -375,7 +381,7 @@ def assert_run_active(phase):
 def validated_benchmark_token(value):
     if (not isinstance(value, str) or len(value) < 16
             or not all(33 <= ord(ch) <= 126 for ch in value)):
-        raise ValueError("Invalid Bearer token format / Định dạng Bearer token không hợp lệ")
+        raise ValueError("English: Invalid Bearer token format\nTiếng Việt: Định dạng Bearer token không hợp lệ")
     return value
 
 
@@ -411,12 +417,12 @@ def http_json(path, body=None):
         with urllib.request.build_opener(RejectRedirect).open(req, timeout=TIMEOUT_SECONDS) as response:
             return json.load(response)
     except urllib.error.HTTPError as error:
-        raise RuntimeError("HTTP %d on %s; no retry / không thử lại" % (error.code, path)) from None
+        raise RuntimeError("English: HTTP %d on %s; no retry\nTiếng Việt: không thử lại" % (error.code, path)) from None
     except (urllib.error.URLError, TimeoutError):
-        raise RuntimeError("HTTP network/timeout failure on %s; no retry / lỗi mạng hoặc quá thời gian; không thử lại" % path) from None
+        raise RuntimeError("English: HTTP network/timeout failure on %s; no retry\nTiếng Việt: lỗi mạng hoặc quá thời gian; không thử lại" % path) from None
     except (ValueError, UnicodeError, InvalidURL):
         # Never surface raw urllib header errors with credentials.
-        raise RuntimeError("Invalid HTTP request/response encoding; no retry / Mã hóa HTTP request/response không hợp lệ; không thử lại") from None
+        raise RuntimeError("English: Invalid HTTP request/response encoding; no retry\nTiếng Việt: Mã hóa HTTP request/response không hợp lệ; không thử lại") from None
 
 def write_benchmark_report(payload):
     """Atomically replace a prior report without persisting credentials."""
@@ -459,17 +465,19 @@ def save_failed_report(phase, error_type, failed_trial=None, interrupted=False):
 
 def stop_benchmark(phase, error_type, failed_trial=None):
     output = save_failed_report(phase, error_type, failed_trial)
-    raise RuntimeError("Benchmark stopped / Benchmark đã dừng ở bước " + phase + " (" + error_type +
-                       "); partial report saved / đã lưu báo cáo chưa hoàn tất: " + output.name)
+    raise RuntimeError(
+        "English: Benchmark stopped at " + phase + " (" + error_type + "); partial report saved: " + output.name +
+        "\nTiếng Việt: Benchmark đã dừng ở bước " + phase + " (" + error_type + "); đã lưu báo cáo chưa hoàn tất: " + output.name
+    )
 
 def interrupt_benchmark(phase):
     """Called only on KeyboardInterrupt; never schedule another POST in this run."""
     if run_failure is None:
         save_failed_report(phase, "KeyboardInterrupt", interrupted=True)
-    print("INTERRUPTED / ĐÃ NGẮT: Re-run API client/preflight for a NEW run. "
-          "Do not re-run this phase; in-flight server work may continue. / "
-          "Chạy lại cell client/preflight để bắt đầu lượt MỚI; đừng chạy lại phase "
-          "đã ngắt vì tác vụ trên server vẫn có thể tiếp tục.")
+    print("English: INTERRUPTED. Re-run API client/preflight for a NEW run. "
+          "Do not re-run this phase; in-flight server work may continue.")
+    print("Tiếng Việt: ĐÃ NGẮT. Chạy lại cell client/preflight để bắt đầu lượt MỚI; "
+          "đừng chạy lại phase đã ngắt vì tác vụ trên server vẫn có thể tiếp tục.")
 
 if RUN_BENCHMARK:
     write_benchmark_report({
@@ -486,24 +494,25 @@ if RUN_BENCHMARK:
             raise RuntimeError(
                 "Missing API credentials: set VISION_EMBEDDINGS_BASE_URL and "
                 "VISION_EMBEDDINGS_API_TOKEN, or enable ALLOW_CREDENTIAL_PROMPTS "
-                "for an interactive run. / Thiếu thông tin xác thực API: đặt hai "
+                "for an interactive run.\nTiếng Việt: Thiếu thông tin xác thực API: đặt hai "
                 "biến môi trường hoặc cho phép prompt khi chạy tương tác."
             )
         base_url = os.environ.get("VISION_EMBEDDINGS_BASE_URL", "") or getpass(
-            "HTTPS endpoint / URL API (hidden): ")
+            "HTTPS endpoint (hidden): ")
         base_url = validated_benchmark_base_url(base_url)
         token = os.environ.get("VISION_EMBEDDINGS_API_TOKEN", "") or getpass(
-            "Application Bearer token / Token ứng dụng (hidden): ")
+            "Application Bearer token (hidden): ")
         validated_benchmark_token(token)
         if http_json("/v1/health").get("backend") != "modal":
-            raise RuntimeError("Real Modal endpoint required; mock rejected / Cần endpoint Modal thật; không chấp nhận mock")
+            raise RuntimeError("English: Real Modal endpoint required; mock rejected\nTiếng Việt: Cần endpoint Modal thật; không chấp nhận mock")
         catalog = http_json("/v1/models")
         found = {m["id"]: m for m in catalog.get("models", [])}
         if not set(MODELS).issubset(found):
-            raise RuntimeError("Both embedding models must be available in catalog / Danh mục API phải có đủ hai model embedding")
+            raise RuntimeError("English: Both embedding models must be available in catalog\nTiếng Việt: Danh mục API phải có đủ hai model embedding")
         if QWEN_INSTRUCTION_MODE == "custom" and found[MODELS[0]].get("supports_custom_instruction") is not True:
-            raise RuntimeError("API lacks Qwen custom instruction capability / API không hỗ trợ instruction tùy chỉnh của Qwen")
-        print("Verified live API/catalog / Đã xác thực API và model.")
+            raise RuntimeError("English: API lacks Qwen custom instruction capability\nTiếng Việt: API không hỗ trợ instruction tùy chỉnh của Qwen")
+        print("English: Verified live API/catalog.")
+        print("Tiếng Việt: Đã xác thực API và model.")
         run_completed_phases.add("preflight")
     except KeyboardInterrupt:
         interrupt_benchmark("preflight")
@@ -528,7 +537,7 @@ def request_body(model, modality, reqid):
 def checked_metadata(data, model):
     meta = data.get("embedding_metadata")
     if not isinstance(meta, dict):
-        raise RuntimeError("Missing embedding_metadata / Thiếu embedding_metadata")
+        raise RuntimeError("English: Missing embedding_metadata\nTiếng Việt: Thiếu embedding_metadata")
     pre, ins, config_hash = (meta.get(k) for k in
                              ("preprocessing_version", "instruction_sha256", "config_sha256"))
     def sha(v):
@@ -537,24 +546,24 @@ def checked_metadata(data, model):
                  else QWEN_LEGACY_INSTRUCTION) if model == MODELS[0] else None
     expected_ins = hashlib.sha256(effective.encode("utf-8")).hexdigest() if effective else None
     if not pre or not isinstance(pre, str) or ins != expected_ins or not sha(config_hash):
-        raise RuntimeError("Invalid instruction or configuration metadata / Metadata instruction hoặc cấu hình không hợp lệ")
+        raise RuntimeError("English: Invalid instruction or configuration metadata\nTiếng Việt: Metadata instruction hoặc cấu hình không hợp lệ")
     canonical = {"dimension": DIMENSION, "instruction_sha256": expected_ins,
                  "model": model, "preprocessing_version": pre,
                  "revision": data.get("revision")}
     expected_config = hashlib.sha256(json.dumps(
         canonical, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
     if config_hash != expected_config:
-        raise RuntimeError("Configuration SHA-256 mismatch / SHA-256 của cấu hình embedding không khớp")
+        raise RuntimeError("English: Configuration SHA-256 mismatch\nTiếng Việt: SHA-256 của cấu hình embedding không khớp")
     return dict(meta)
 
 def register_provenance(model, revision, metadata):
     """Require stable checkpoint and encoding configuration across every measurement."""
     if not isinstance(revision, str) or not revision:
-        raise RuntimeError("Missing model checkpoint revision / Thiếu revision của checkpoint model")
+        raise RuntimeError("English: Missing model checkpoint revision\nTiếng Việt: Thiếu revision của checkpoint model")
     if model in revisions and revisions[model] != revision:
-        raise RuntimeError("Model revision changed during benchmark / Revision model thay đổi trong khi benchmark")
+        raise RuntimeError("English: Model revision changed during benchmark\nTiếng Việt: Revision model thay đổi trong khi benchmark")
     if model in embedding_configs and embedding_configs[model] != metadata:
-        raise RuntimeError("Embedding configuration changed during benchmark / Cấu hình embedding thay đổi trong khi benchmark")
+        raise RuntimeError("English: Embedding configuration changed during benchmark\nTiếng Việt: Cấu hình embedding thay đổi trong khi benchmark")
     revisions[model] = revision
     embedding_configs[model] = dict(metadata)
 
@@ -562,23 +571,23 @@ def checked_gpu_timing(data, expected_batch_size=1):
     """Validate each worker's GPU instrumentation for all benchmark phases."""
     timing = data.get("timing")
     if not isinstance(timing, dict):
-        raise RuntimeError("Instrumented GPU timing required / Thiếu dữ liệu đo thời gian GPU bắt buộc")
+        raise RuntimeError("English: Instrumented GPU timing required\nTiếng Việt: Thiếu dữ liệu đo thời gian GPU bắt buộc")
     state, first = timing.get("model_state"), timing.get("gpu_worker_first_request")
     worker_id = timing.get("gpu_worker_id")
     if worker_id is not None and (not isinstance(worker_id, str)
                                   or len(worker_id) != 32
                                   or any(ch not in "0123456789abcdef" for ch in worker_id)):
-        raise RuntimeError("Invalid opaque GPU worker identifier / Mã định danh GPU worker không hợp lệ")
+        raise RuntimeError("English: Invalid opaque GPU worker identifier\nTiếng Việt: Mã định danh GPU worker không hợp lệ")
     if (state not in {"initial_load", "model_reload", "warm"}
         or type(first) is not bool or type(timing.get("batch_size")) is not int
         or type(expected_batch_size) is not int or expected_batch_size < 1
         or timing["batch_size"] != expected_batch_size):
-        raise RuntimeError("Invalid GPU state, first-request flag or batch size / Trạng thái GPU, cờ request đầu hoặc kích thước batch không hợp lệ")
+        raise RuntimeError("English: Invalid GPU state, first-request flag or batch size\nTiếng Việt: Trạng thái GPU, cờ request đầu hoặc kích thước batch không hợp lệ")
     def ms(value, name, optional=False):
         if optional and value is None:
             return None
         if type(value) not in (int, float) or not math.isfinite(value) or value < 0:
-            raise RuntimeError("Invalid timing field / Trường thời gian không hợp lệ: " + name)
+            raise RuntimeError("English: Invalid timing field\nTiếng Việt: Trường thời gian không hợp lệ: " + name)
         return round(value, 3)
     return {
         "model_state": state, "gpu_worker_first_request": first,
@@ -594,7 +603,7 @@ def checked_gpu_timing(data, expected_batch_size=1):
 # -- One validated sample; no automatic POST retry --
 def _sample_checked(model, modality, phase, round_number):
     if model not in MODELS or modality not in ("text", "image"):
-        raise ValueError("Invalid model/modality / Model hoặc loại đầu vào không hợp lệ")
+        raise ValueError("English: Invalid model/modality\nTiếng Việt: Model hoặc loại đầu vào không hợp lệ")
     reqid = "benchmark-%06d-%s" % (sequence, hashes[modality][:12])
     body = request_body(model, modality, reqid)
     start = time.perf_counter()
@@ -603,19 +612,19 @@ def _sample_checked(model, modality, phase, round_number):
     if (data.get("model") != model or data.get("backend") != "modal"
         or data.get("request_id") != reqid
         or data.get("input_sha256") != hashes[modality]):
-        raise RuntimeError("Model/backend/request ID/input digest mismatch / Model, backend, request ID hoặc mã băm đầu vào không khớp")
+        raise RuntimeError("English: Model/backend/request ID/input digest mismatch\nTiếng Việt: Model, backend, request ID hoặc mã băm đầu vào không khớp")
     metadata = checked_metadata(data, model)
     register_provenance(model, data.get("revision"), metadata)
     declared_dimension = data.get("dimension")
     if type(declared_dimension) is not int or declared_dimension != DIMENSION:
-        raise RuntimeError("Incorrect declared embedding dimension / Số chiều embedding khai báo không chính xác")
+        raise RuntimeError("English: Incorrect declared embedding dimension\nTiếng Việt: Số chiều embedding khai báo không chính xác")
     vector = data.get("vector")
     if not isinstance(vector, list) or len(vector) != DIMENSION:
-        raise RuntimeError("Incorrect embedding dimension / Số chiều vector embedding không chính xác")
+        raise RuntimeError("English: Incorrect embedding dimension\nTiếng Việt: Số chiều vector embedding không chính xác")
     if not all(type(v) in (float, int) and math.isfinite(v) for v in vector):
-        raise RuntimeError("Non-finite embedding / Vector embedding chứa giá trị không hữu hạn")
+        raise RuntimeError("English: Non-finite embedding\nTiếng Việt: Vector embedding chứa giá trị không hữu hạn")
     if abs(math.sqrt(sum(v*v for v in vector)) - 1.0) >= 0.001:
-        raise RuntimeError("Embedding not L2-normalized / Vector embedding chưa được chuẩn hóa L2")
+        raise RuntimeError("English: Embedding not L2-normalized\nTiếng Việt: Vector embedding chưa được chuẩn hóa L2")
     instrument = checked_gpu_timing(data)
     return {
         "phase": phase, "model": model, "modality": modality, "round": round_number,
@@ -691,7 +700,9 @@ if RUN_BENCHMARK and RUN_COLD:
             order = (COLD_ACTIVE_MODELS if index % 2 == 0
                      else tuple(reversed(COLD_ACTIVE_MODELS)))
             for model in order:
-                print("Cold %d/%d %s: idle %ds, no probes / không probe" %
+                print("English: Cold %d/%d %s: idle %ds, no probes" %
+                      (index+1, COLD_REPETITIONS, model, COLD_IDLE_WAIT_SECONDS))
+                print("Tiếng Việt: Cold %d/%d %s: chờ %d giây, không probe" %
                       (index+1, COLD_REPETITIONS, model, COLD_IDLE_WAIT_SECONDS))
                 idle_started_at_utc = utc_now()
                 idle_started_monotonic = time.perf_counter()
@@ -709,9 +720,12 @@ if RUN_BENCHMARK and RUN_COLD:
                     "confirmed_initial_load" if result["confirmed"]
                     else result["model_state"]
                 )
-                print("GPU COLD CONFIRMED" if result["confirmed"] else "GPU COLD UNCONFIRMED",
+                print("English:", "GPU COLD CONFIRMED" if result["confirmed"] else "GPU COLD UNCONFIRMED",
                       "state:", result["model_state"], "worker:",
                       result["gpu_worker_id"] or "unavailable")
+                print("Tiếng Việt:", "ĐÃ XÁC NHẬN GPU COLD" if result["confirmed"] else "CHƯA XÁC NHẬN GPU COLD",
+                      "trạng thái:", result["model_state"], "worker:",
+                      result["gpu_worker_id"] or "không có")
     except KeyboardInterrupt:
         interrupt_benchmark("cold")
         raise
@@ -735,7 +749,8 @@ if RUN_BENCHMARK and RUN_WARM:
                     result = sample(model, modality, "warm", block+1)
                     result["confirmed"] = (result["model_state"] == "warm"
                                            and result["gpu_worker_first_request"] is False)
-                print("Warm block done / Hoàn tất warm:", block+1, model)
+                print("English: Warm block done:", block+1, model)
+                print("Tiếng Việt: Hoàn tất warm:", block+1, model)
     except KeyboardInterrupt:
         interrupt_benchmark("warm")
         raise
@@ -764,8 +779,10 @@ if RUN_BENCHMARK and RUN_ALTERNATE:
                     and alternate_workers[MODELS[0]] != alternate_workers[MODELS[1]]
                 )
                 if not result["confirmed"]:
-                    print("UNCONFIRMED alternating route / Chưa xác nhận:", target, index + 1)
-        print("Dedicated GPU workers / Hai GPU worker riêng:", alternate_workers)
+                    print("English: UNCONFIRMED alternating route:", target, index + 1)
+                    print("Tiếng Việt: Chưa xác nhận định tuyến luân phiên:", target, index + 1)
+        print("English: Dedicated GPU workers:", alternate_workers)
+        print("Tiếng Việt: Hai GPU worker riêng:", alternate_workers)
     except KeyboardInterrupt:
         interrupt_benchmark("alternate")
         raise
@@ -791,13 +808,13 @@ def concurrent_probe(model, index):
     if (data.get("model") != model or data.get("request_id") != reqid
         or data.get("backend") != "modal" or data.get("input_sha256") != hashes["text"]
         or data.get("dimension") != DIMENSION):
-        raise RuntimeError("Concurrent request identity mismatch / Định danh request đồng thời không khớp")
+        raise RuntimeError("English: Concurrent request identity mismatch\nTiếng Việt: Định danh request đồng thời không khớp")
     metadata = checked_metadata(data, model)
     vector = data.get("vector")
     if (not isinstance(vector, list) or len(vector) != DIMENSION
         or not all(type(v) in (float, int) and math.isfinite(v) for v in vector)
         or abs(math.sqrt(sum(v*v for v in vector)) - 1.0) >= 0.001):
-        raise RuntimeError("Invalid concurrent embedding / Embedding của request đồng thời không hợp lệ")
+        raise RuntimeError("English: Invalid concurrent embedding\nTiếng Việt: Embedding của request đồng thời không hợp lệ")
     # A completed concurrent trial must also pass GPU instrumentation checks.
     # An absent worker ID is acceptable; invalid required timing is not.
     instrument = checked_gpu_timing(data)
@@ -926,7 +943,8 @@ if RUN_BENCHMARK and RUN_CONCURRENT:
                 "workers_requested": CONCURRENT_WORKERS, "burst_wall_ms": wall,
                 "observed_burst_items_per_second": round(done*1000/wall, 3) if wall else None,
             })
-        print("Concurrent burst / Nhóm request đồng thời:", concurrent_summary)
+        print("English: Concurrent burst:", concurrent_summary)
+        print("Tiếng Việt: Nhóm request đồng thời:", concurrent_summary)
     except KeyboardInterrupt:
         # A submit may be interrupted after dispatch but before its Future is assigned.
         # Worker outcomes remain available after executor shutdown in either case.
@@ -979,7 +997,7 @@ if RUN_BENCHMARK and RUN_MIXED_BATCH:
                 wall = round((time.perf_counter() - started) * 1000, 3)
                 results = response.get("items")
                 if response.get("count") != 2 or not isinstance(results, list) or len(results) != 2:
-                    raise RuntimeError("Mixed batch count mismatch / Số kết quả của mixed batch không khớp")
+                    raise RuntimeError("English: Mixed batch count mismatch\nTiếng Việt: Số kết quả của mixed batch không khớp")
                 workers, configs, observed, gpu_states = {}, {}, [], {}
                 # The gateway groups requests by model and sends each group to
                 # its own GPU worker; HTTP batch count is not the worker batch size.
@@ -992,13 +1010,13 @@ if RUN_BENCHMARK and RUN_MIXED_BATCH:
                         or data.get("backend") != "modal"
                         or type(data.get("dimension")) is not int or data["dimension"] != DIMENSION
                         or data.get("input_sha256") != hashes["text"]):
-                        raise RuntimeError("Mixed batch routing or order mismatch / Định tuyến hoặc thứ tự mixed batch không khớp")
+                        raise RuntimeError("English: Mixed batch routing or order mismatch\nTiếng Việt: Định tuyến hoặc thứ tự mixed batch không khớp")
                     meta = checked_metadata(data, model)
                     vector = data.get("vector")
                     if (not isinstance(vector, list) or len(vector) != DIMENSION
                         or not all(type(v) in (float, int) and math.isfinite(v) for v in vector)
                         or abs(math.sqrt(sum(v*v for v in vector)) - 1.0) >= 0.001):
-                        raise RuntimeError("Invalid mixed batch embedding / Vector embedding của mixed batch không hợp lệ")
+                        raise RuntimeError("English: Invalid mixed batch embedding\nTiếng Việt: Vector embedding của mixed batch không hợp lệ")
                     instrumentation = checked_gpu_timing(
                         data, expected_batch_size=worker_batch_sizes[model]
                     )
@@ -1011,7 +1029,7 @@ if RUN_BENCHMARK and RUN_MIXED_BATCH:
                     configs[model] = meta["config_sha256"]
                     observed.append((model, data.get("revision"), meta))
                 if all(workers.values()) and len(set(workers.values())) != 2:
-                    raise RuntimeError("Two models unexpectedly share a GPU worker ID / Hai model bất ngờ dùng cùng mã GPU worker")
+                    raise RuntimeError("English: Two models unexpectedly share a GPU worker ID\nTiếng Việt: Hai model bất ngờ dùng cùng mã GPU worker")
                 for model, revision, metadata in observed:
                     register_provenance(model, revision, metadata)
                 trial.update(status="completed", confirmed=True,
@@ -1029,7 +1047,8 @@ if RUN_BENCHMARK and RUN_MIXED_BATCH:
                              error_type=type(error).__name__,
                              finished_at_utc=utc_now())
                 stop_benchmark("mixed_batch", type(error).__name__)
-        print("Mixed-model batch / Batch hai model:", len(batch_trials))
+        print("English: Mixed-model batch:", len(batch_trials))
+        print("Tiếng Việt: Batch hai model:", len(batch_trials))
     except KeyboardInterrupt:
         interrupt_benchmark("mixed_batch")
         raise
@@ -1180,7 +1199,11 @@ if RUN_BENCHMARK:
     output = write_benchmark_report(report)
     # Bilingual on-screen summary; the full redacted JSON remains the source of details.
     lines = [
-        "| Phase / Giai đoạn | Model | Input / Đầu vào | Confirmed / Xác nhận | Latency n | p50 (ms) | p95 (ms) |",
+        "| Phase | Model | Input | Confirmed | Latency n | p50 (ms) | p95 (ms) |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: |",
+    ]
+    lines_vi = [
+        "| Giai đoạn | Model | Đầu vào | Đã xác nhận | Số mẫu latency | p50 (ms) | p95 (ms) |",
         "| --- | --- | --- | ---: | ---: | ---: | ---: |",
     ]
     for label, values in summary.items():
@@ -1188,38 +1211,56 @@ if RUN_BENCHMARK:
         client = values["client"] or {}
         p50 = f'{client["p50_ms"]:.2f}' if "p50_ms" in client else "N/A"
         p95 = f'{client["p95_ms"]:.2f}' if "p95_ms" in client else "N/A"
-        lines.append(
+        row = (
             f'| {phase} | {model} | {modality} | '
             f'{values["confirmed"]}/{values["attempts"]} | {client.get("n", 0)} | {p50} | {p95} |'
         )
+        lines.append(row)
+        lines_vi.append(row)
     if summary:
         sample_note = (
-            "**Sample size / Số mẫu:** Latency n is the count of confirmed samples "
+            "**Sample size:** Latency n is the count of confirmed samples "
             "with finite client latency in each group. Default warm-only: 24 POSTs "
             "= 8 warm-ups + 16 measured (at most 4 per model/modality). "
-            "p95 is descriptive, not production tail-latency evidence. / "
-            "Latency n là số mẫu xác nhận có thời gian client hợp lệ trong từng nhóm. "
-            "Mặc định warm: 24 POST = 8 warm-up + 16 đo (tối đa 4 mẫu mỗi model/loại). "
+            "p95 is descriptive, not production tail-latency evidence."
+        )
+        sample_note_vi = (
+            "**Số mẫu:** Số mẫu latency là số mẫu xác nhận có thời gian client hợp lệ "
+            "trong từng nhóm. Mặc định warm: 24 POST = 8 warm-up + 16 đo "
+            "(tối đa 4 mẫu mỗi model/loại). "
             "p95 chỉ mô tả mẫu, không phải bằng chứng độ trễ đuôi production."
         )
         rendered = "\n".join(lines)
+        rendered_vi = "\n".join(lines_vi)
+        bilingual_report = (
+            "### English — Confirmed latency\n\n" + rendered + "\n\n" + sample_note +
+            "\n\n---\n\n### Tiếng Việt — Độ trễ đã xác nhận\n\n" + rendered_vi +
+            "\n\n" + sample_note_vi
+        )
         try:
             from IPython.display import Markdown, display
-            display(Markdown("### Confirmed latency / Độ trễ đã xác nhận\n\n" + rendered + "\n\n" + sample_note))
+            display(Markdown(bilingual_report))
         except ImportError:
-            print(rendered)
-            print(sample_note)
+            print(bilingual_report)
     else:
-        print("No confirmed timing states / Chưa có mẫu đã xác nhận.")
-    print("LIVE REPORT / BÁO CÁO THỰC TẾ")
+        print("English: No confirmed timing states.")
+        print("Tiếng Việt: Chưa có mẫu đã xác nhận.")
+    print("English: LIVE REPORT")
+    print("Tiếng Việt: BÁO CÁO THỰC TẾ")
     for label, values in summary.items():
         c = values["client"]
-        print(label, "confirmed", values["confirmed"], "/", values["attempts"],
+        print("English:", label, "confirmed", values["confirmed"], "/", values["attempts"],
               "client p50/p95 (ms)", (c["p50_ms"], c["p95_ms"]) if c else "N/A")
+        print("Tiếng Việt:", label, "đã xác nhận", values["confirmed"], "/", values["attempts"],
+              "client p50/p95 (ms)", (c["p50_ms"], c["p95_ms"]) if c else "không có")
     if RUN_CONCURRENT:
-        print("Concurrent bursts / Nhóm đồng thời:", concurrent_summary)
+        print("English: Concurrent bursts:", concurrent_summary)
+        print("Tiếng Việt: Nhóm đồng thời:", concurrent_summary)
     if RUN_MIXED_BATCH:
-        print("Mixed-model batch attempts / Số lượt batch:", len(batch_trials))
-    print("Saved / Đã lưu:", output.name)
+        print("English: Mixed-model batch attempts:", len(batch_trials))
+        print("Tiếng Việt: Số lượt batch:", len(batch_trials))
+    print("English: Saved:", output.name)
+    print("Tiếng Việt: Đã lưu:", output.name)
 else:
-    print("No live benchmark performed / Chưa chạy benchmark thật.")
+    print("English: No live benchmark performed.")
+    print("Tiếng Việt: Chưa chạy benchmark thật.")

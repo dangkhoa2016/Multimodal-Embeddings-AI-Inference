@@ -85,6 +85,7 @@ def test_no_bare_config_assertions_and_no_retry_policy_unchanged():
     snippets = cells()
     assert not any(isinstance(node, ast.Assert) for node in ast.walk(ast.parse(snippets["config"])))
     client = snippets["client"]
-    assert "no retry /" in client and "không thử lại" in client
+    assert "no retry" in client and "không thử lại" in client
+    assert "Tiếng Việt:" in client
     assert "run_started_phases.add(phase)" in client
     assert "save_failed_report(phase, error_type, failed_trial)" in client

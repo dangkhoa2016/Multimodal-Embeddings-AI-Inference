@@ -93,13 +93,22 @@ def test_notebook_structure_and_clean_outputs():
 def test_user_visible_notebook_diagnostics_are_bilingual():
     demo = notebook_code()
     benchmark = (ROOT / "notebooks" / "multimodal_embeddings_benchmark.ipynb").read_text()
-    assert "Polling interval must be 1–60 seconds / Khoảng chờ polling" in demo
-    assert "Polling window must be 1–3600 seconds / Thời gian polling" in demo
-    assert "Invalid async cache; do not overwrite without backing it up /" in demo
+    assert "English: Polling interval must be 1–60 seconds" in demo
+    assert "Tiếng Việt: Khoảng chờ polling" in demo
+    assert "English: Polling window must be 1–3600 seconds" in demo
+    assert "Tiếng Việt: Thời gian polling" in demo
+    assert "English: Invalid async cache; do not overwrite without backing it up" in demo
+    assert "Tiếng Việt: Cache async không hợp lệ" in demo
     assert "Mapping request ID cũ phải là đối tượng JSON" in demo
-    assert "Verify your actual Modal settings; displayed defaults are examples only. /" in benchmark
-    assert "Both embedding models must be available in catalog /" in benchmark
-    assert "Missing embedding_metadata / Thiếu embedding_metadata" in benchmark
+    assert (
+        "English: Verify your actual Modal settings; displayed defaults are examples only."
+        in benchmark
+    )
+    assert "Tiếng Việt: Kiểm tra cấu hình Modal thực tế" in benchmark
+    assert "English: Both embedding models must be available in catalog" in benchmark
+    assert "Tiếng Việt: Danh mục API phải có đủ hai model embedding" in benchmark
+    assert "English: Missing embedding_metadata" in benchmark
+    assert "Tiếng Việt: Thiếu embedding_metadata" in benchmark
 
 
 def test_notebook_intro_is_fully_visible_in_both_languages():

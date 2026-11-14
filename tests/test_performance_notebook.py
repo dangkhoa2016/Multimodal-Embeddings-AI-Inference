@@ -623,9 +623,10 @@ def test_new_optional_performance_phases_with_offline_responses(tmp_path):
 def test_benchmark_report_shows_bilingual_latency_table():
     final_code = "".join(notebook()["cells"][-1]["source"])
     compile(final_code, "benchmark-report-cell", "exec")
-    assert "Confirmed latency / Độ trễ đã xác nhận" in final_code
-    assert "Phase / Giai đoạn" in final_code
-    assert "Confirmed / Xác nhận" in final_code
+    assert "English — Confirmed latency" in final_code
+    assert "Tiếng Việt — Độ trễ đã xác nhận" in final_code
+    assert "| Phase | Model | Input | Confirmed | Latency n |" in final_code
+    assert "| Giai đoạn | Model | Đầu vào | Đã xác nhận |" in final_code
     assert "p50 (ms)" in final_code and "p95 (ms)" in final_code
 
 

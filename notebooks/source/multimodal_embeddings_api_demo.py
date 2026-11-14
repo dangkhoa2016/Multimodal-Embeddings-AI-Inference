@@ -542,16 +542,18 @@ def builtin_preview_html():
             'style="width:100%;height:210px;object-fit:contain;" />'
             '<figcaption style="margin-top:8px;font:14px/1.45 system-ui,Arial,sans-serif;'
             'color:#15283b;">'
-            f'{escape_html(english)} / {escape_html(vietnamese)}'
+            f'<span lang="en" style="display:block">{escape_html(english)}</span>'
+            f'<span lang="vi" style="display:block">{escape_html(vietnamese)}</span>'
             '</figcaption></figure>'
         )
     return (
         '<p role="note" style="max-width:960px;padding:10px 12px;'
         'border:1px solid #b6c6d6;border-radius:8px;'
         'background:#f5f8fc;color:#15283b;font:14px/1.5 system-ui,Arial,sans-serif;">'
-        '<strong>Built-in samples only / Chỉ ảnh mẫu nhúng sẵn.</strong> '
-        'If you select custom images, those are submitted to the API but not previewed here. '
-        '/ Nếu chọn ảnh riêng, ảnh đó được gửi tới API nhưng không hiển thị ở đây.'
+        '<div lang="en"><strong>Built-in samples only.</strong> '
+        'If you select custom images, those are submitted to the API but not previewed here.</div>'
+        '<div lang="vi"><strong>Chỉ ảnh mẫu nhúng sẵn.</strong> '
+        'Nếu chọn ảnh riêng, ảnh đó được gửi tới API nhưng không hiển thị ở đây.</div>'
         '</p>'
         '<div role="group" aria-label="Built-in image previews / Hình ảnh nhúng sẵn" '
         'style="display:flex;flex-wrap:wrap;gap:12px;max-width:960px;">'
@@ -564,7 +566,8 @@ def builtin_preview_html():
 try:
     from IPython.display import HTML, display
 except ImportError:
-    print("Bundled previews require IPython / Cần IPython để xem ảnh nhúng.")
+    print("English: Bundled previews require IPython.")
+    print("Tiếng Việt: Cần IPython để xem ảnh nhúng.")
 else:
     display(HTML(builtin_preview_html()))
 
@@ -705,7 +708,8 @@ if globals().get("PREVIEW_CUSTOM_IMAGES", False) and _custom_slots:
     try:
         from IPython.display import HTML, display
     except ImportError:
-        print("Custom previews require IPython / Cần IPython để xem ảnh riêng.")
+        print("English: Custom previews require IPython.")
+        print("Tiếng Việt: Cần IPython để xem ảnh riêng.")
     else:
         _custom_cards = []
         for _i, (_image, _source) in enumerate(zip(image_samples, image_sources, strict=True), 1):
@@ -715,12 +719,13 @@ if globals().get("PREVIEW_CUSTOM_IMAGES", False) and _custom_slots:
                      else "image/jpeg" if _image.startswith(b"\xff\xd8") else "image/webp")
             _encoded = base64.b64encode(_image).decode("ascii")
             _custom_cards.append(
-                '<figure><figcaption>Custom image / Ảnh riêng ' + str(_i) + '</figcaption>'
-                f'<img src="data:{_mime};base64,{_encoded}" alt="Custom image / Ảnh riêng {_i}" '
+                '<figure><figcaption><span lang="en" style="display:block">Custom image ' + str(_i)
+                + '</span><span lang="vi" style="display:block">Ảnh riêng ' + str(_i) + '</span></figcaption>'
+                f'<img src="data:{_mime};base64,{_encoded}" alt="Custom image {_i}" '
                 'style="max-width:280px;max-height:210px;object-fit:contain" /></figure>'
             )
-        display(HTML('<p>Private image preview — clear outputs before sharing. / '
-                     'Xem ảnh riêng — xóa output trước khi chia sẻ.</p>'
+        display(HTML('<p lang="en">Private image preview — clear outputs before sharing.</p>'
+                     '<p lang="vi">Xem ảnh riêng — xóa output trước khi chia sẻ.</p>'
                      + ''.join(_custom_cards)))
 # %% NOTEBOOK CELL credentials-input
 #@title Secure API connection / Kết nối API bảo mật { display-mode: "form" }
@@ -985,7 +990,7 @@ import time
 def check_embedding_metadata(result, model, instruction):
     meta = result.get("embedding_metadata")
     if not isinstance(meta, dict):
-        raise RuntimeError("Missing embedding_metadata / Thiếu metadata embedding")
+        raise RuntimeError("English: Missing embedding_metadata\nTiếng Việt: Thiếu metadata embedding")
     pre = meta.get("preprocessing_version")
     instruction_hash = meta.get("instruction_sha256")
     config_hash = meta.get("config_sha256")
@@ -996,14 +1001,14 @@ def check_embedding_metadata(result, model, instruction):
         if model == "qwen3-vl-embedding-8b" else None
     )
     if not isinstance(pre, str) or not pre or instruction_hash != expected_instruction_hash or not is_hash(config_hash):
-        raise RuntimeError("Invalid embedding metadata / Metadata embedding không hợp lệ")
+        raise RuntimeError("English: Invalid embedding metadata\nTiếng Việt: Metadata embedding không hợp lệ")
     config = {
         "dimension": dimension, "instruction_sha256": instruction_hash,
         "model": model, "preprocessing_version": pre, "revision": result.get("revision"),
     }
     expected = hashlib.sha256(json.dumps(config, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
     if config_hash != expected:
-        raise RuntimeError("Configuration SHA-256 mismatch / Mã băm cấu hình không khớp")
+        raise RuntimeError("English: Configuration SHA-256 mismatch\nTiếng Việt: Mã băm cấu hình không khớp")
     return meta
 
 
@@ -1032,9 +1037,9 @@ import tempfile
 from pathlib import Path
 
 if not 1 <= int(POLL_INTERVAL_SECONDS) <= 60:
-    raise ValueError("Polling interval must be 1–60 seconds / Khoảng chờ polling phải từ 1–60 giây")
+    raise ValueError("English: Polling interval must be 1–60 seconds\nTiếng Việt: Khoảng chờ polling phải từ 1–60 giây")
 if not 1 <= int(MAX_POLL_SECONDS) <= 3600:
-    raise ValueError("Polling window must be 1–3600 seconds / Thời gian polling tối đa phải từ 1–3600 giây")
+    raise ValueError("English: Polling window must be 1–3600 seconds\nTiếng Việt: Thời gian polling tối đa phải từ 1–3600 giây")
 
 # This file persists across cell re-runs and some notebook restarts. It holds
 # verified vectors, not the raw inputs, the API URL or the Bearer token.
@@ -1047,11 +1052,11 @@ def _read_async_cache():
     if not _ASYNC_CACHE_PATH.exists():
         return {"schema_version": 1, "records": {}}
     if _ASYNC_CACHE_PATH.stat().st_size > 8_000_000:
-        raise RuntimeError("Cache exceeds 8 MB / Cache vượt 8 MB")
+        raise RuntimeError("English: Cache exceeds 8 MB\nTiếng Việt: Cache vượt 8 MB")
     cache = json.loads(_ASYNC_CACHE_PATH.read_text(encoding="utf-8"))
     if (not isinstance(cache, dict) or cache.get("schema_version") != 1
             or not isinstance(cache.get("records"), dict)):
-        raise RuntimeError("Invalid async cache; do not overwrite without backing it up / Cache async không hợp lệ; hãy sao lưu trước khi ghi đè")
+        raise RuntimeError("English: Invalid async cache; do not overwrite without backing it up\nTiếng Việt: Cache async không hợp lệ; hãy sao lưu trước khi ghi đè")
     return cache
 
 _ASYNC_CACHE = _read_async_cache()
@@ -1107,7 +1112,7 @@ def _explicit_legacy_resume_id(stable_id):
             "Mapping JSON request ID cũ không hợp lệ; không gửi GPU POST mới.",
         )) from None
     if not isinstance(mapping, dict):
-        raise RuntimeError("Legacy request-ID mapping must be a JSON object / Mapping request ID cũ phải là đối tượng JSON")
+        raise RuntimeError("English: Legacy request-ID mapping must be a JSON object\nTiếng Việt: Mapping request ID cũ phải là đối tượng JSON")
     older = mapping.get(stable_id)
     if older is None:
         return None
@@ -1116,7 +1121,7 @@ def _explicit_legacy_resume_id(stable_id):
     if (not isinstance(older, str) or len(older) != 45
             or not older.startswith("demo-")
             or any(char not in "0123456789abcdef" for char in older[5:])):
-        raise RuntimeError("Invalid legacy request ID / Mã request cũ không hợp lệ")
+        raise RuntimeError("English: Invalid legacy request ID\nTiếng Việt: Mã request cũ không hợp lệ")
     record = _ASYNC_CACHE["records"].get(older)
     if not isinstance(record, dict):
         raise RuntimeError(message_pair(
@@ -1147,7 +1152,7 @@ def _async_result(body, raw):
                 rid = restored  # Explicit saved pre-rotation ID; GET only.
     record = _ASYNC_CACHE["records"].get(rid)
     if record is not None and not isinstance(record, dict):
-        raise RuntimeError("Invalid async cache record / Bản ghi cache không hợp lệ")
+        raise RuntimeError("English: Invalid async cache record\nTiếng Việt: Bản ghi cache không hợp lệ")
     if record and isinstance(record.get("result"), dict):
         # A cache hit is not a zero-millisecond inference measurement.
         cached = dict(record["result"])
@@ -1210,21 +1215,21 @@ def _async_result(body, raw):
             job_id = _ASYNC_CACHE["records"][rid].get("job_id")
             response = api_request("/v1/embeddings/jobs/" + job_id)
         if not isinstance(response, dict):
-            raise RuntimeError("Unexpected async job response / Phản hồi job không hợp lệ")
+            raise RuntimeError("English: Unexpected async job response\nTiếng Việt: Phản hồi job không hợp lệ")
         state = response.get("state")
         server_id = response.get("job_id")
         if not isinstance(server_id, str) or len(server_id) != 64:
-            raise RuntimeError("Missing async job ID / Thiếu mã job")
+            raise RuntimeError("English: Missing async job ID\nTiếng Việt: Thiếu mã job")
         if record and record.get("job_id") and server_id != record["job_id"]:
-            raise RuntimeError("Job ID changed / Mã job đã thay đổi")
+            raise RuntimeError("English: Job ID changed\nTiếng Việt: Mã job đã thay đổi")
         if state not in ("QUEUED", "RUNNING", "SUCCEEDED", "FAILED", "INDETERMINATE"):
-            raise RuntimeError("Unknown async job state / Trạng thái job không hợp lệ")
+            raise RuntimeError("English: Unknown async job state\nTiếng Việt: Trạng thái job không hợp lệ")
         _ASYNC_CACHE["records"][rid] = {"state": state, "job_id": server_id}
         _save_async_cache()
         if state == "SUCCEEDED":
             result = response.get("result")
             if not isinstance(result, dict) or result.get("request_id") != rid:
-                raise RuntimeError("Async result/request ID mismatch / Kết quả không khớp request")
+                raise RuntimeError("English: Async result/request ID mismatch\nTiếng Việt: Kết quả không khớp request")
             elapsed_ms = (time.perf_counter() - started) * 1000.0
             result = dict(result)
             result["_client_timing"] = {
@@ -1284,7 +1289,7 @@ def checked_embedding(selected_model, *, text=None, image=None):
         body["image_base64"] = base64.b64encode(image).decode("ascii")
     if instruction_mode == "custom":
         if selected_model != "qwen3-vl-embedding-8b" or not supports_custom_instruction:
-            raise ValueError("Custom instruction unsupported / Không hỗ trợ instruction tùy chỉnh")
+            raise ValueError("English: Custom instruction unsupported\nTiếng Việt: Không hỗ trợ instruction tùy chỉnh")
         body["instruction"] = custom_instruction
     async_request_id = None
     if USE_ASYNC_JOBS and health.get("backend") == "modal":
@@ -1394,7 +1399,7 @@ else:
     configs = {(r["embedding_metadata"]["preprocessing_version"],
                 r["embedding_metadata"]["config_sha256"]) for r in text_results + image_results}
     if len(configs) != 1:
-        raise RuntimeError("Embedding config changed / Cấu hình embedding thay đổi")
+        raise RuntimeError("English: Embedding config changed\nTiếng Việt: Cấu hình embedding thay đổi")
     if len(revisions) != 1 or any(not all(item) for item in revisions):
         raise RuntimeError(message_pair(
             "Model revisions or repositories differ; refusing cosine comparisons",
@@ -1868,13 +1873,15 @@ if not globals().get("preview_only_mode", False):
         '<aside role="note" style="border:2px solid #d97706;'
         'background:#fffbeb;color:#78350f;padding:12px 14px;'
         'border-radius:8px;margin-bottom:18px;">'
-        '<strong>Actual inference inputs / Ảnh thực sự dùng cho inference</strong>'
-        '<p>Custom image slots / Vị trí ảnh riêng: '
+        '<div lang="en"><strong>Actual inference inputs</strong>'
+        '<p>Custom image slots: '
         + safe_text(_custom_result_slots)
         + '. The built-in preview gallery is NOT the submitted image. '
-        'Private image content and paths are not included in this report.'
-        ' / Gallery ảnh mẫu KHÔNG phải ảnh đã gửi. Báo cáo không hiển thị'
-        ' nội dung hoặc đường dẫn ảnh riêng.</p></aside>'
+        'Private image content and paths are not included in this report.</p></div>'
+        '<div lang="vi"><strong>Ảnh thực sự dùng cho inference</strong>'
+        '<p>Vị trí ảnh riêng: ' + safe_text(_custom_result_slots)
+        + '. Gallery ảnh mẫu KHÔNG phải ảnh đã gửi. Báo cáo không hiển thị'
+        ' nội dung hoặc đường dẫn ảnh riêng.</p></div></aside>'
         if _custom_result_slots else ""
     )
 

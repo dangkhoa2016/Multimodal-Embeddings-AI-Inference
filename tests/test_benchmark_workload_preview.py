@@ -55,7 +55,8 @@ def test_default_preview_counts_warmup_and_measured_separately():
     }
     assert values["PLANNED_POST_TOTAL"] == 24
     assert values["PLANNED_EMBEDDING_ITEMS"] == 24
-    assert "Authorization / Cho phép chạy: OFF / TẮT" in output
+    assert "English: Authorization: OFF" in output
+    assert "Tiếng Việt: Cho phép chạy: TẮT" in output
     assert "Request làm nóng" in output
     assert "Total planned HTTP POST attempts" in output
     assert "không tự thử lại" in output
@@ -75,7 +76,8 @@ def test_all_phases_preview_distinguishes_post_count_batch_items_and_idle():
     assert values["PLANNED_EMBEDDING_ITEMS"] == 60
     assert values["COLD_IDLE_WAIT_SECONDS"] == 210
     assert values["COLD_TOTAL_IDLE_SECONDS"] == 2100
-    assert "Authorization / Cho phép chạy: ON / BẬT" in output
+    assert "English: Authorization: ON" in output
+    assert "Tiếng Việt: Cho phép chạy: BẬT" in output
     assert "không gồm thời gian xử lý API/GPU" in output
     assert "two items each" in output
     assert "no automatic retry or cost estimate" in output
@@ -89,5 +91,6 @@ def test_single_model_cold_only_previews_without_network_or_auth():
     assert values["PLANNED_POST_TOTAL"] == 5
     assert values["PLANNED_EMBEDDING_ITEMS"] == 5
     assert values["COLD_TOTAL_IDLE_SECONDS"] == 1050
-    assert "OFF / TẮT" in output
+    assert "English: Authorization: OFF" in output
+    assert "Tiếng Việt: Cho phép chạy: TẮT" in output
     assert "5" in output and "Chỉ tính thời gian chờ cold" in output

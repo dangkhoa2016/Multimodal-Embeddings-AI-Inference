@@ -1,0 +1,75 @@
+{
+  "run_kind": "measured_real_modal_inference",
+  "created_utc": "2026-11-08T23:12:43.088129+00:00",
+  "client_python": "3.13.18",
+  "client_platform": "Linux",
+  "client_source_sha256": "bcc05681d0319ec11a9b3f09ebda0fe742d645ead8a6fe5ee1872c7e767986f4",
+  "model": "qwen3-vl-embedding-8b",
+  "dimension": 1024,
+  "backend": "modal",
+  "revision": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+  "embedding_metadata": {
+    "preprocessing_version": "qwen3-vl-adapter-v1",
+    "instruction_sha256": "240313607629dc23891e2352e3463acd16b4a0c4996dfc7a6d2db9d3adb370ac",
+    "config_sha256": "9b8824e64ea400dbef8524c5cba588e5b2c5cad5ebda921c283407bde38317e3"
+  },
+  "dataset": "The three public WebP samples bundled in the API demo notebook",
+  "images": [
+    {
+      "file": "gift.webp",
+      "input_sha256": "effe492f02a77bb5f6d7bfd4c45cafdcb2a6e1e21bd04ad121743c5f063926f5"
+    },
+    {
+      "file": "sphere.webp",
+      "input_sha256": "b05c0a82744e675af89237e263f3b9385556655c9dc0b18aca149f53ed369925"
+    },
+    {
+      "file": "triangle.webp",
+      "input_sha256": "62ce81f1c82a9d73d73b17acb6d2587a9d700bf37aba8453112055cbc99be4af"
+    }
+  ],
+  "index_post_requests": 3,
+  "queries": [
+    {
+      "text": "an orange gift box with a ribbon",
+      "top_k": 3,
+      "post_requests": 1,
+      "cosine_decimal_places": 4,
+      "results": [
+        {
+          "rank": 1,
+          "cosine": 0.76,
+          "file": "gift.webp"
+        },
+        {
+          "rank": 2,
+          "cosine": 0.0979,
+          "file": "triangle.webp"
+        },
+        {
+          "rank": 3,
+          "cosine": 0.0968,
+          "file": "sphere.webp"
+        }
+      ]
+    },
+    {
+      "text": "a blue sphere",
+      "top_k": 2,
+      "post_requests": 1,
+      "cosine_decimal_places": 4,
+      "results": [
+        {
+          "rank": 1,
+          "cosine": 0.6648,
+          "file": "sphere.webp"
+        },
+        {
+          "rank": 2,
+          "cosine": 0.0926,
+          "file": "gift.webp"
+        }
+      ]
+    }
+  ]
+}

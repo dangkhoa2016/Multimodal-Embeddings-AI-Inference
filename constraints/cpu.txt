@@ -23,7 +23,7 @@ pydantic==2.14.3
 pydantic_core==2.50.4
 Pygments==2.21.0
 pytest==9.2.0
-redis==6.4.0
+redis==8.1.0
 ruff==0.17.4
 sortedcontainers==2.4.0
 starlette==1.10.0

@@ -1,0 +1,142 @@
+{
+  "runner_provenance": {
+    "status": "COMPLETED_UNAUDITED",
+    "started_utc": "2026-11-17T13:06:49.398608+00:00",
+    "git_source_commit": "44f1f0c30c6c5ff77b590df530bf9968cc177c24",
+    "modal_app_id": "ap-eyGLvx8kO5Q313HRqjBeCj",
+    "modal_app_version": 1,
+    "modal_app_deployment_record": {
+      "version": "v1",
+      "time_deployed": "2026-11-17 13:00:56+00:00",
+      "client": "1.6.4",
+      "deployed_by": "gmanley943",
+      "commit": "44f1f0c"
+    },
+    "deployment_url": null,
+    "benchmark_mode": "full",
+    "source_code_sha256": "5140a22b1a5804848d0e1553116e5a2f9d34c61c21364c08772350c97466119b",
+    "executed_code_sha256": "67423a72a5f662c5870ab36a2a8346ca0e0a5f67c83510c45e027204cd3e88aa",
+    "config_overrides": {
+      "RUN_BENCHMARK": true,
+      "BENCHMARK_MODE": "full"
+    },
+    "source_tree_sha": "c9e0397a73861af223b4a7946e91591af4c52182",
+    "modal_app_sha256": "1fc2f744923001134e6a596c89f6ada228500b464e4fa30c22d8bc4b19c737d7",
+    "checkpoint_revisions": {
+      "qwen3-vl-embedding-8b": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+      "wemm-embedding-9b": "00c52839de57a6d4fd5b78cf5522ccf0ac8ea482"
+    },
+    "client_python": "3.11.12",
+    "client_os": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "gpu_compute_local": false,
+    "token_saved_to_artifacts": false,
+    "finished_utc": "2026-11-17T14:22:53.264535+00:00",
+    "exit_code": 0,
+    "error_kind": null,
+    "reported_status": "LIVE_BENCHMARK_MEASURED",
+    "report_filename": "full-2026-11-17.json",
+    "report_sha256": "c2f22484683ccbf4bf880f3e52da521010ff7b3d72e873ee0365bb871ada543a",
+    "execution_log_sha256": "efab8bb2e76dc262687d08b1bd466a091a237d2b6a34b9d0238ea94af0b5ce4f"
+  },
+  "modal_deployment": {
+    "history": [
+      {
+        "version": "v1",
+        "time_deployed": "2026-11-17 13:00:56+00:00",
+        "client": "1.6.4",
+        "deployed_by": "gmanley943",
+        "commit": "44f1f0c"
+      }
+    ],
+    "info": {
+      "description": "multimodal-embeddings-benchmark-20261117",
+      "app_id": "ap-eyGLvx8kO5Q313HRqjBeCj",
+      "lifecycle": {
+        "state": "deployed",
+        "created_at": "2026-11-17 12:58:47+00:00",
+        "created_by": "gmanley943",
+        "deployed_at": "2026-11-17 13:00:56+00:00",
+        "deployed_by": "gmanley943",
+        "version": 1,
+        "stopped_at": null,
+        "stopped_by": null
+      },
+      "functions": {
+        "QwenL40SGpu.*": {
+          "id": "fu-8UXoZo1aGyfKpLl4izNZTA",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "L40S"
+              }
+            ]
+          }
+        },
+        "WeMML40SGpu.*": {
+          "id": "fu-pxeBgOzrWvGULcOJX8Ji7v",
+          "summary": {
+            "gpu_config": [
+              {
+                "count": 1,
+                "gpu_type": "L40S"
+              }
+            ]
+          }
+        },
+        "api_entrypoint": {
+          "id": "fu-vLi7bbI9GGzvGFwKkRC9sV",
+          "summary": {
+            "web_function": true,
+            "authenticated": false
+          }
+        },
+        "run_embedding_job": {
+          "id": "fu-2d6RFmSGiYBJMdrkziGTsh",
+          "summary": {}
+        }
+      },
+      "servers": {}
+    }
+  },
+  "independent_audit": {
+    "status": "PASS",
+    "failure_count": 0,
+    "failures": [],
+    "report_created_utc": "2026-11-17T14:22:53.193017+00:00",
+    "session_started_utc": "2026-11-17T13:06:49.398608+00:00",
+    "session_finished_utc": "2026-11-17T14:22:53.264535+00:00",
+    "duration_minutes": 76.064,
+    "post_requests": 65,
+    "embedding_items": 68,
+    "phases": {
+      "cold": 10,
+      "warmup": 8,
+      "warm": 16,
+      "alternate_setup": 2,
+      "alternate": 10,
+      "concurrent_setup": 2,
+      "mixed_batch_setup": 6
+    },
+    "recomputed_summary_groups": 8,
+    "sha256": {
+      "full_json": "c2f22484683ccbf4bf880f3e52da521010ff7b3d72e873ee0365bb871ada543a",
+      "runner_log": "efab8bb2e76dc262687d08b1bd466a091a237d2b6a34b9d0238ea94af0b5ce4f",
+      "runner_code": "67423a72a5f662c5870ab36a2a8346ca0e0a5f67c83510c45e027204cd3e88aa"
+    },
+    "provenance": {
+      "pinned_git_commit": "44f1f0c30c6c5ff77b590df530bf9968cc177c24",
+      "modal_deployment_app": "ap-eyGLvx8kO5Q313HRqjBeCj",
+      "modal_deployment_version": 1,
+      "source_claim": "operator provided and corroborated by Modal deployment history; not in-response GPU attestation"
+    }
+  },
+  "measured_report_sha256": "c2f22484683ccbf4bf880f3e52da521010ff7b3d72e873ee0365bb871ada543a",
+  "publication_redaction": {
+    "redacted_fields": [
+      "runner_provenance.deployment_url"
+    ],
+    "reason": "Direct operator deployment endpoint omitted from public provenance; the original record is retained offline by the operator.",
+    "measurement_json_modified": false
+  }
+}

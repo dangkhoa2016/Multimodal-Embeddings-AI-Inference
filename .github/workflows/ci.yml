@@ -83,8 +83,17 @@ jobs:
         run: python scripts/audit_benchmark_evidence.py
       - name: Audit monitoring privacy and security invariants (CPU only)
         run: python scripts/security_audit.py
-      - name: Verify source SHA256 integrity manifest
-        if: ${{ hashFiles('SHA256SUMS.txt') != '' && hashFiles('README.md') != '' }}
+      # PRs change tracked files, so the immutable release manifest is not
+      # their authoritative checksum baseline. Validate only the ephemeral
+      # generated manifest in PRs; main/tag builds still check committed bytes.
+      - name: Validate ephemeral SHA256 manifest on pull requests
+        if: ${{ github.event_name == 'pull_request' && hashFiles('SHA256SUMS.txt') != '' && hashFiles('README.md') != '' }}
+        run: |
+          python scripts/update_sha256_manifest.py
+          python scripts/update_sha256_manifest.py --check
+          sha256sum --check SHA256SUMS.txt
+      - name: Verify committed source SHA256 integrity manifest (main/tags)
+        if: ${{ github.event_name != 'pull_request' && hashFiles('SHA256SUMS.txt') != '' && hashFiles('README.md') != '' }}
         run: |
           python - <<'PY'
           import hashlib

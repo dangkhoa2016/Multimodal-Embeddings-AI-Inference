@@ -18,9 +18,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "httpx>=0.27,<1", "ruff>=0.8,<1", "redis>=6.4,<7", "fakeredis[lua]>=2.40,<3"]
+dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "httpx>=0.27,<1", "ruff>=0.8,<1", "redis>=6.4,<9", "fakeredis[lua]>=2.40,<3"]
 modal = ["modal>=1.0,<3", "python-dotenv>=1.0,<2"]
-distributed = ["redis>=6.4,<7"]
+distributed = ["redis>=6.4,<9"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

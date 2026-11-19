@@ -1,6 +1,20 @@
-# Kết quả benchmark API — 08/11/2026 (UTC)
+# Kết quả benchmark API — Tổng quan các phiên đo
 
 🌐 Ngôn ngữ / Language: [English](README.md) | **Tiếng Việt**
+
+Đây là trang tổng quan các kết quả benchmark API đã công bố. **Full Benchmark mới nhất của phiên bản `v1.0.0` được đo ngày 19/11/2026 theo giờ Việt Nam.** Các bảng chi tiết phía dưới vẫn là số liệu lịch sử ngày 08/11/2026, không phải số liệu của lần đo mới nhất.
+
+## Các phiên benchmark đã công bố
+
+| Ngày đo | Phạm vi | Báo cáo và dữ liệu |
+| --- | --- | --- |
+| **19/11/2026 (UTC+7; 18/11 UTC)** — mới nhất | Full Benchmark 5 giai đoạn; **65 HTTP POST thành công / 68 embedding items** | [Báo cáo tiếng Việt](full-2026-11-19.vi.md) · [English](full-2026-11-19.md) · [JSON](full-2026-11-19.json) · [Provenance](full-2026-11-19.provenance.json) |
+| **17/11/2026 (UTC)** — lịch sử | Full Benchmark độc lập; **65 HTTP POST / 68 embedding items** | [Báo cáo tiếng Việt](full-2026-11-17.vi.md) · [English](full-2026-11-17.md) · [JSON](full-2026-11-17.json) · [Provenance](full-2026-11-17.provenance.json) |
+| **08/11/2026 (UTC)** — lịch sử | 35 POST serving / 38 embedding items; kiểm tra quá tải 10 POST riêng; ví dụ tìm ảnh bằng văn bản riêng | [Serving](serving.json) · [Overload](overload.json) · [Image search](image-search.json) · [Chi tiết](#phép-đo-lịch-sử-08112026-utc) |
+
+**Diễn giải:** Ngày đo không nhất thiết là ngày đưa dữ liệu vào Git. Các phiên đo độc lập, không cộng dồn lượt POST. Kết quả chỉ mô tả tải thử nghiệm cụ thể; không phải đánh giá retrieval accuracy hoặc cam kết SLA. Dữ liệu ngày 19/11 chưa chứng thực độc lập commit nguồn phía client/server.
+
+## Phép đo lịch sử — 08/11/2026 (UTC)
 
 Báo cáo trình bày kết quả đo hiệu năng API và thử nghiệm tìm ảnh bằng văn bản với `Qwen/Qwen3-VL-Embedding-8B` và `tencent/WeMM-Embedding-9B`. Notebook sử dụng client Linux CPU (Python 3.13.18) gọi API embeddings qua HTTPS.
 
@@ -64,6 +78,8 @@ Health trả HTTP 200 trong **1,108 giây** khi đợt request đang chạy. Cal
 
 Đây là ví dụ truy xuất nhỏ được lưu từ lần chạy trước. Hãy đánh giá chất lượng xếp hạng trên dữ liệu đại diện, dùng cùng revision model và cấu hình mã hóa. [API Demo Notebook](../../notebooks/multimodal_embeddings_api_demo.ipynb) có ba ảnh mẫu này; [hướng dẫn benchmark](../README.vi.md) giải thích cách đo deployment của bạn.
 
-## Báo cáo benchmark đầy đủ
+## Dữ liệu nguồn và giới hạn truy xuất
 
-Kết quả ngày 08/11/2026 vẫn được lưu tại [báo cáo serving](serving.json), [báo cáo overload](overload.json) và [báo cáo tìm ảnh](image-search.json). Snapshot mã nguồn deployment lịch sử chưa được xác minh độc lập. Kết quả đo mới hơn nằm trong [báo cáo 17/11/2026](full-2026-11-17.vi.md) cùng [JSON](full-2026-11-17.json). Các số liệu không bảo đảm SLA production hoặc chất lượng embedding.
+Các bảng serving, overload và tìm ảnh phía trên là **dữ liệu ngày 08/11/2026 (UTC)**: [serving.json](serving.json), [overload.json](overload.json), [image-search.json](image-search.json). Snapshot mã nguồn deployment lịch sử chưa được xác minh độc lập.
+
+Các Full Benchmark ngày [17/11/2026](full-2026-11-17.vi.md) và [19/11/2026](full-2026-11-19.vi.md) được lưu thành những phiên riêng biệt. Không trộn kết quả hoặc provenance giữa các phiên. [JSON ngày 19/11](full-2026-11-19.json) không chứa chứng thực độc lập commit nguồn phía client/server. Các số liệu không bảo đảm SLA production hay chất lượng embedding.

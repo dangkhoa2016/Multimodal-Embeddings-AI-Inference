@@ -1,6 +1,20 @@
-# API benchmark results — 8 November 2026 (UTC)
+# API benchmark results — overview of measured runs
 
 🌐 Language / Ngôn ngữ: **English** | [Tiếng Việt](README.vi.md)
+
+This page indexes the published API benchmark measurements. **The latest Full Benchmark in the `v1.0.0` publication was measured on 19 November 2026 in Vietnam.** The detailed tables below preserve the historical 8 November results; they do not describe the latest run.
+
+## Published benchmark runs
+
+| Measurement date | Scope | Reports and source data |
+| --- | --- | --- |
+| **19 November 2026 (ICT, UTC+7; 18 November UTC)** — latest | Five-phase Full Benchmark; **65 successful HTTP POSTs / 68 embedding items** | [English report](full-2026-11-19.md) · [Tiếng Việt](full-2026-11-19.vi.md) · [JSON](full-2026-11-19.json) · [Provenance](full-2026-11-19.provenance.json) |
+| **17 November 2026 (UTC)** — historical | Independent Full Benchmark; **65 HTTP POSTs / 68 embedding items** | [English report](full-2026-11-17.md) · [Tiếng Việt](full-2026-11-17.vi.md) · [JSON](full-2026-11-17.json) · [Provenance](full-2026-11-17.provenance.json) |
+| **8 November 2026 (UTC)** — historical | 35 serving POSTs / 38 embedding items; separate ten-POST overload test; separate text-to-image search example | [Serving](serving.json) · [Overload](overload.json) · [Image search](image-search.json) · [Details](#historical-measurements-8-november-2026-utc) |
+
+**Interpretation:** Measurement dates may differ from Git publication dates. These runs are independent; do not add their POST counts together. They describe bounded workloads, not retrieval accuracy or production SLAs. The 19 November data do not independently attest client/server source commits.
+
+## Historical measurements — 8 November 2026 (UTC)
 
 This report presents API performance and text-to-image retrieval results using `Qwen/Qwen3-VL-Embedding-8B` and `tencent/WeMM-Embedding-9B`. The notebook used a Linux CPU client (Python 3.13.18) to call the embedding API over HTTPS.
 
@@ -64,6 +78,8 @@ The [image-search report](image-search.json) uses the three bundled WebP samples
 
 This is a small historical retrieval example. Evaluate ranking quality on representative data, using the same model revision and encoding settings. The [API demo notebook](../../notebooks/multimodal_embeddings_api_demo.ipynb) includes the three sample images; the [benchmark guide](../README.md) explains how to measure your own deployment.
 
-## Full inference benchmark
+## Source data and provenance limitations
 
-The 8 November 2026 observations remain available in the [serving report](serving.json), [overload report](overload.json), and [image-search report](image-search.json). The original deployment source snapshot was not independently verified. For a more recent measured run, see the [17 November 2026 report](full-2026-11-17.md) and [JSON results](full-2026-11-17.json). These measurements do not guarantee production SLAs or embedding quality.
+The serving, overload and text-to-image tables above are **8 November 2026 (UTC)** historical measurements: [serving.json](serving.json), [overload.json](overload.json) and [image-search.json](image-search.json). The historical deployment source snapshot was not independently verified.
+
+The Full Benchmarks from [17 November 2026](full-2026-11-17.md) and [19 November 2026](full-2026-11-19.md) are separate measured runs. Do not combine their results or provenance. The [19 November JSON](full-2026-11-19.json) does not independently attest client/server source commits. These measurements do not guarantee production SLAs or embedding quality.

@@ -1,0 +1,30 @@
+{
+  "runner_provenance": {
+    "source": "Kaggle CLI kernels output",
+    "kernel": "dangkhoa2016/multimodal-embeddings-ai-inference-benchmark-f",
+    "kernel_status_at_collection": "COMPLETE",
+    "verification_scope": "Original JSON retrieved from completed Kaggle output and independently checked offline for result accounting and file hash",
+    "retrieved_at_utc": "2026-11-19T00:41:42.870309+00:00"
+  },
+  "measured_report_sha256": "5667fdb6712cfc02df5c9a2546a2f1f0a52506393a1cb941c3edc2b7a9f28728",
+  "measured_report_bytes": 87413,
+  "measurement": {
+    "run_id": "a6130023950a4d20b4be767efd79406f",
+    "report_created_utc": "2026-11-18T23:17:48.637061+00:00",
+    "benchmark_mode": "full",
+    "model_revisions": {
+      "qwen3-vl-embedding-8b": "2c4565515e0f265c6511776e7193b22c0968ddc7",
+      "wemm-embedding-9b": "00c52839de57a6d4fd5b78cf5522ccf0ac8ea482"
+    }
+  },
+  "source_attestation": {
+    "client_source_commit_verified": false,
+    "server_source_commit_verified": false,
+    "notebook_runtime_digest_independently_verified": false,
+    "note": "The original JSON records client_source_commit and server_source_commit as unavailable. This supplementary sidecar must not be mistaken for contemporaneous source verification."
+  },
+  "evidence_integrity": {
+    "json_unmodified": true,
+    "source_hash_basis": "Kaggle CLI downloaded file, SHA256 cross-checked against original saved output"
+  }
+}
